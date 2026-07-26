@@ -98,7 +98,7 @@
       <button class="menu-btn secondary" data-go="arrows"><span class="menu-icon">🏹</span>本数</button>
       <button class="menu-btn secondary" data-go="consumables"><span class="menu-icon">🔧</span>消耗品管理</button>
       <button class="menu-btn secondary" data-go="records"><span class="menu-icon">📒</span>記録</button>
-      <button class="menu-btn secondary" data-placeholder="設定"><span class="menu-icon">⚙️</span>設定</button>
+      <button class="menu-btn secondary" data-go="settings"><span class="menu-icon">⚙️</span>設定</button>
     </div>
   </section>
 
@@ -283,6 +283,27 @@
     </div>
   </section>
 
+  <section id="settingsScreen" class="screen">
+    <div class="topbar">
+      <button class="back" data-go="home">← ホーム</button>
+      <div class="topbar-title"><strong>設定</strong><div class="muted">データ管理</div></div>
+    </div>
+
+    <div class="card">
+      <strong>データ管理</strong>
+      <div class="muted" style="margin-top:6px">スコア・メモ・本数・グルーピング・消耗品をまとめて管理します。</div>
+      <button id="exportBackup" style="margin-top:16px">バックアップを書き出す</button>
+      <button id="importBackupBtn" class="secondary" style="margin-top:10px">バックアップから復元</button>
+      <input id="importBackupFile" type="file" accept=".json,application/json" style="display:none">
+    </div>
+
+    <div class="card" style="margin-top:22px">
+      <strong>すべてのデータを削除</strong>
+      <div class="muted" style="margin-top:6px">この端末に保存されているArcheryの記録をすべて削除します。この操作は元に戻せません。</div>
+      <button id="deleteAllData" class="danger" style="margin-top:14px">すべてのデータを削除</button>
+    </div>
+  </section>
+
   <section id="placeholderScreen" class="screen">
     <div class="placeholder">
       <div style="font-size:54px">🏹</div>
@@ -306,6 +327,7 @@ const screens = {
   recordDay: document.getElementById('recordDayScreen'),
   detail: document.getElementById('recordDetailScreen'),
   impact: document.getElementById('impactScreen'),
+  settings: document.getElementById('settingsScreen'),
   placeholder: document.getElementById('placeholderScreen')
 };
 function showScreen(name){
@@ -861,6 +883,88 @@ function render(){
 render();
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+
+const ARCHERY_DATA_KEYS=[
+  'archeryState',
+  'archeryRecords',
+  'archeryArrowCounts',
+  'archeryConsumables',
+  'archeryConsumablesV2'
+];
+
+function makeBackupData(){
+  const data={
+    app:'Archery',
+    version:1,
+    exportedAt:new Date().toISOString(),
+    localStorage:{}
+  };
+  ARCHERY_DATA_KEYS.forEach(key=>{
+    const value=localStorage.getItem(key);
+    if(value!==null) data.localStorage[key]=value;
+  });
+  return data;
+}
+
+document.getElementById('exportBackup')?.addEventListener('click',()=>{
+  try{
+    const backup=makeBackupData();
+    const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=`archery_backup_${localDateString()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }catch(e){
+    console.error('バックアップ作成に失敗',e);
+    alert('バックアップを書き出せませんでした。');
+  }
+});
+
+document.getElementById('importBackupBtn')?.addEventListener('click',()=>{
+  document.getElementById('importBackupFile').click();
+});
+
+document.getElementById('importBackupFile')?.addEventListener('change',async(e)=>{
+  const file=e.target.files?.[0];
+  if(!file) return;
+  try{
+    const text=await file.text();
+    const backup=JSON.parse(text);
+    if(!backup || backup.app!=='Archery' || !backup.localStorage || typeof backup.localStorage!=='object'){
+      throw new Error('invalid backup');
+    }
+    if(!confirm('現在のデータをバックアップの内容で復元しますか？')) {
+      e.target.value='';
+      return;
+    }
+    ARCHERY_DATA_KEYS.forEach(key=>localStorage.removeItem(key));
+    Object.entries(backup.localStorage).forEach(([key,value])=>{
+      if(ARCHERY_DATA_KEYS.includes(key) && typeof value==='string'){
+        localStorage.setItem(key,value);
+      }
+    });
+    alert('復元しました。アプリを再読み込みします。');
+    location.reload();
+  }catch(err){
+    console.error('復元に失敗',err);
+    alert('このファイルから復元できませんでした。Archeryのバックアップファイルを選択してください。');
+  }finally{
+    e.target.value='';
+  }
+});
+
+document.getElementById('deleteAllData')?.addEventListener('click',()=>{
+  if(!confirm('Archeryのすべての記録・本数・メモ・消耗品データを削除しますか？')) return;
+  if(!confirm('本当に削除しますか？ この操作は元に戻せません。')) return;
+  ARCHERY_DATA_KEYS.forEach(key=>localStorage.removeItem(key));
+  alert('すべてのデータを削除しました。');
+  location.reload();
+});
+
 </script>
 </body>
 </html>

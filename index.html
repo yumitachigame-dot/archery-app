@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Archery" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <title>Archery</title>
+  <title>ArrowNote</title>
   <style>
     :root { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif; }
     * { box-sizing: border-box; }
@@ -86,19 +86,434 @@
     .consumable-item-count { font-size:28px; font-weight:800; margin-top:10px; }
     .mini-btn { width:auto; padding:9px 11px; font-size:13px; }
     .item-actions { display:flex; gap:8px; margin-top:12px; }
+    .score-keypad { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
+    .score-keypad button { min-height:58px; font-size:21px; }
+
+    #scoreScreen .row { grid-template-columns:64px 64px 1fr; gap:8px; }
+    #scoreScreen .compact-action { min-height:48px; padding:7px 8px; font-size:22px; line-height:1; display:flex; align-items:center; justify-content:center; gap:4px; }
+    #scoreScreen .compact-finish { min-height:48px; padding:7px 12px; font-size:22px; line-height:1; display:flex; align-items:center; justify-content:center; gap:5px; }
+    #scoreScreen .compact-reset { width:38px !important; min-height:38px; padding:4px !important; font-size:20px !important; line-height:1; }
+    .compact-label { font-size:12px; font-weight:700; white-space:nowrap; }
+
+    .compact-home-dashboard { margin-top:14px; background:#171a21; border-radius:18px; padding:12px; box-shadow:0 6px 24px rgba(0,0,0,.22); }
+    .home-kpi-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:7px; }
+    .home-kpi-grid > .home-kpi { grid-column:span 2; }
+    .home-kpi { text-align:center; background:#212632; border-radius:12px; padding:7px 3px; }
+    .home-kpi span { display:block; color:#9aa3b2; font-size:10px; }
+    .home-kpi strong { display:block; font-size:19px; margin-top:2px; }
+    .home-kpi-grid > .home-kpi-wide { grid-column:span 6; padding:6px 3px; }
+    .home-kpi-grid > .home-kpi-half { grid-column:span 3; }
+    .home-distance-tabs { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-top:8px; }
+    .home-distance-tabs button { min-height:34px; padding:5px 2px; border-radius:10px; font-size:13px; background:#2a2f3b; }
+    .home-distance-tabs button.active { background:#2b7cff; }
+    #homeScreen .menu { gap:9px; margin-top:14px; }
+    #homeScreen .menu-btn { min-height:58px; padding:12px 16px; font-size:18px; }
+    .grouping-metric { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:12px; }
+    .grouping-metric strong { display:block; font-size:28px; margin-top:2px; }
+    .grouping-help { max-width:58%; font-size:11px; line-height:1.45; text-align:right; }
+
+    #homeScreen { padding-bottom:18px; }
+    .home-header { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+    .home-header h1 { margin-bottom:2px; }
+    .home-settings-btn {
+      width:38px; height:38px; min-height:38px; padding:0; border-radius:12px;
+      background:#202530; color:#aeb6c5; font-size:19px; line-height:1;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .compact-home-dashboard { margin-top:12px; padding:10px; }
+    .home-distance-tabs { margin-top:0; margin-bottom:8px; }
+    .home-distance-tabs button { min-height:31px; }
+    .home-kpi { padding:6px 3px; border-radius:10px; }
+    .home-kpi strong { font-size:18px; }
+    .home-actions { margin-top:12px; }
+    .home-primary-action {
+      width:100%; min-height:58px; border-radius:16px; padding:10px 16px;
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      font-size:19px; font-weight:800;
+    }
+    .home-action-icon { font-size:22px; }
+    .home-action-grid {
+      display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px; margin-top:8px;
+    }
+    .home-action-card {
+      min-height:62px; border-radius:14px; padding:8px 10px;
+      background:#202530; color:#f4f6fa;
+      display:grid; grid-template-columns:auto 1fr; grid-template-rows:1fr;
+      align-items:center; gap:8px; text-align:left;
+    }
+    .home-action-card > span { font-size:20px; }
+    .home-action-card > strong { font-size:15px; }
+    .home-action-card small {
+      grid-column:2; font-size:8px; color:#7f899b; letter-spacing:.08em; margin-top:-8px;
+    }
+    .home-action-disabled { opacity:.55; cursor:default; }
+
+    /* Home: clearly separate read-only metrics from tappable actions */
+    .compact-home-dashboard {
+      background:transparent;
+      box-shadow:none;
+      padding:0;
+      border-radius:0;
+    }
+    .home-distance-tabs {
+      background:#171a21;
+      border-radius:14px;
+      padding:6px;
+      margin-bottom:8px;
+    }
+    .home-kpi-grid {
+      background:#171a21;
+      border-radius:16px;
+      padding:8px;
+      gap:0;
+    }
+    .home-kpi {
+      background:transparent;
+      border-radius:0;
+      border-right:1px solid #2a2f3b;
+      border-bottom:1px solid #2a2f3b;
+      padding:8px 4px;
+    }
+    .home-kpi:nth-child(3),
+    .home-kpi:nth-child(6) { border-right:0; }
+    .home-kpi-half { border-bottom:0; }
+    .home-kpi:nth-child(7) { border-right:1px solid #2a2f3b; }
+    .home-kpi:nth-child(8) { border-right:0; }
+
+    .home-actions { margin-top:14px; }
+    .home-primary-action,
+    .home-action-card {
+      box-shadow:0 5px 14px rgba(0,0,0,.24);
+      border:1px solid rgba(255,255,255,.07);
+    }
+    .home-action-card {
+      background:#272d39;
+    }
+    .home-action-card:active,
+    .home-primary-action:active {
+      transform:translateY(1px);
+      box-shadow:0 2px 7px rgba(0,0,0,.22);
+    }
+
+    .home-distance-select-row {
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+      margin-bottom:8px;
+      padding:0 2px;
+    }
+    .home-distance-select-row > span {
+      color:#9aa3b2;
+      font-size:12px;
+      font-weight:700;
+    }
+    .home-distance-select {
+      width:128px;
+      min-height:36px;
+      padding:6px 10px;
+      border:1px solid #343b48;
+      border-radius:10px;
+      background:#252b36;
+      color:#fff;
+      font-size:15px;
+      font-weight:800;
+      outline:none;
+    }
+
+    /* Softer dark theme */
+    body { background:#15181e; color:#f2f4f7; }
+    .card { background:#20242c; }
+    .compact-home-dashboard { background:transparent; }
+    .home-distance-tabs,
+    .home-kpi-grid { background:#20242c; }
+    .home-kpi { background:transparent; border-color:#343a45; }
+    .home-distance-select { background:#2b303a; border-color:#404754; }
+    .home-action-card { background:#2a2f39; }
+    .home-settings-btn { background:#292e38; }
+    .home-primary-action { box-shadow:0 5px 14px rgba(0,0,0,.18); }
+    .home-action-card { box-shadow:0 5px 14px rgba(0,0,0,.16); }
+
+    /* v49 — home visual polish only */
+    #homeScreen {
+      --home-bg:#12161d;
+      --home-panel:#1b2029;
+      --home-panel-soft:#202630;
+      --home-action:#252c37;
+      --home-line:rgba(255,255,255,.075);
+      --home-muted:#8994a5;
+      --home-text:#f4f6f9;
+      --home-accent:#86aefb;
+      background:
+        radial-gradient(circle at 85% -8%, rgba(112,148,220,.09), transparent 28%),
+        var(--home-bg);
+      border-radius:20px;
+    }
+
+    #homeScreen .home-header {
+      align-items:center;
+      margin-bottom:4px;
+    }
+    #homeScreen .home-header h1 {
+      font-size:23px;
+      letter-spacing:-.035em;
+      margin:0;
+    }
+    #homeScreen .home-header .muted {
+      margin-top:3px;
+      font-size:10px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#737f91;
+    }
+    #homeScreen .home-settings-btn {
+      width:36px;
+      height:36px;
+      min-height:36px;
+      border-radius:50%;
+      background:transparent;
+      border:1px solid var(--home-line);
+      box-shadow:none;
+      color:#8e99aa;
+    }
+
+    #homeScreen .compact-home-dashboard {
+      margin-top:13px;
+      padding:11px;
+      background:var(--home-panel);
+      border:1px solid rgba(255,255,255,.045);
+      border-radius:18px;
+      box-shadow:0 10px 30px rgba(0,0,0,.12);
+    }
+
+    #homeScreen .home-distance-select-row {
+      margin:0 0 10px;
+      padding:0 1px;
+      gap:9px;
+    }
+    #homeScreen .home-distance-select-row > span {
+      font-size:10px;
+      letter-spacing:.08em;
+      color:#7e899a;
+    }
+    #homeScreen .home-distance-select {
+      width:136px;
+      min-height:35px;
+      border-radius:11px;
+      background:var(--home-panel-soft);
+      border:1px solid var(--home-line);
+      color:var(--home-text);
+      box-shadow:none;
+    }
+
+    #homeScreen .home-kpi-grid {
+      background:transparent;
+      border-radius:14px;
+      padding:0;
+      gap:0;
+      overflow:hidden;
+      border:1px solid var(--home-line);
+    }
+    #homeScreen .home-kpi {
+      min-width:0;
+      background:transparent;
+      border-color:var(--home-line);
+      padding:10px 4px 9px;
+    }
+    #homeScreen .home-kpi span {
+      display:block;
+      color:var(--home-muted);
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:.055em;
+      line-height:1.15;
+    }
+    #homeScreen .home-kpi strong {
+      display:block;
+      margin-top:4px;
+      color:var(--home-text);
+      font-size:20px;
+      font-weight:750;
+      letter-spacing:-.025em;
+      font-variant-numeric:tabular-nums;
+    }
+
+    #homeScreen .home-actions {
+      margin-top:13px;
+    }
+    #homeScreen .home-primary-action {
+      min-height:60px;
+      border:0;
+      border-radius:17px;
+      box-shadow:0 9px 22px rgba(0,0,0,.20);
+      font-size:18px;
+      letter-spacing:.01em;
+    }
+    #homeScreen .home-action-grid {
+      gap:9px;
+      margin-top:9px;
+    }
+    #homeScreen .home-action-card {
+      min-height:64px;
+      background:var(--home-action);
+      border:1px solid var(--home-line);
+      border-radius:15px;
+      box-shadow:0 7px 18px rgba(0,0,0,.13);
+    }
+    #homeScreen .home-action-card > span {
+      filter:saturate(.82);
+    }
+    #homeScreen .home-action-card > strong {
+      font-weight:700;
+      letter-spacing:-.015em;
+    }
+    #homeScreen .home-action-disabled {
+      opacity:.48;
+      box-shadow:none;
+    }
+
+    @media (max-width:380px) {
+      #homeScreen .home-kpi span { font-size:8px; }
+      #homeScreen .home-kpi strong { font-size:18px; }
+      #homeScreen .home-distance-select { width:122px; }
+    }
+
+
+    #homeScreen .home-svg-icon,
+    #homeScreen .brand-mark {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      color:#aeb7c6;
+      flex:0 0 auto;
+    }
+    #homeScreen .home-svg-icon svg,
+    #homeScreen .brand-mark svg {
+      width:21px;
+      height:21px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.7;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    #homeScreen .brand-mark {
+      margin-right:8px;
+      color:#d6dbe4;
+      vertical-align:middle;
+    }
+    #homeScreen .brand-mark svg {
+      width:22px;
+      height:22px;
+    }
+    #homeScreen .home-settings-btn .home-svg-icon svg {
+      width:18px;
+      height:18px;
+    }
+    #homeScreen .home-action-icon.home-svg-icon {
+      color:#fff;
+    }
+    #homeScreen .home-action-card > .home-svg-icon {
+      width:32px;
+      height:32px;
+      border-radius:9px;
+      background:rgba(255,255,255,.035);
+    }
+    #homeScreen .home-action-card > .home-svg-icon svg {
+      width:19px;
+      height:19px;
+    }
+
+
+    /* v53 — larger home action buttons only */
+    #homeScreen .home-primary-action {
+      min-height:72px;
+      border-radius:18px;
+      font-size:20px;
+      gap:12px;
+      padding:14px 18px;
+    }
+    #homeScreen .home-primary-action .home-action-icon svg {
+      width:25px;
+      height:25px;
+    }
+
+    #homeScreen .home-action-grid {
+      gap:11px;
+      margin-top:11px;
+    }
+    #homeScreen .home-action-card {
+      min-height:82px;
+      border-radius:17px;
+      padding:12px 14px;
+    }
+    #homeScreen .home-action-card > .home-svg-icon {
+      width:38px;
+      height:38px;
+      border-radius:11px;
+    }
+    #homeScreen .home-action-card > .home-svg-icon svg {
+      width:22px;
+      height:22px;
+    }
+    #homeScreen .home-action-card > strong {
+      font-size:17px;
+    }
+
+    @media (max-width:380px) {
+      #homeScreen .home-primary-action { min-height:66px; }
+      #homeScreen .home-action-card { min-height:76px; }
+    }
+
 </style>
 </head>
 <body>
 <div class="app">
   <section id="homeScreen" class="screen active">
-    <h1>🏹 Archery</h1>
-    <div class="muted">アーチェリー管理</div>
-    <div class="menu">
-      <button class="menu-btn" data-go="distance"><span class="menu-icon">🎯</span>点取り</button>
-      <button class="menu-btn secondary" data-go="arrows"><span class="menu-icon">🏹</span>本数</button>
-      <button class="menu-btn secondary" data-go="consumables"><span class="menu-icon">🔧</span>消耗品管理</button>
-      <button class="menu-btn secondary" data-go="records"><span class="menu-icon">📒</span>記録</button>
-      <button class="menu-btn secondary" data-go="settings"><span class="menu-icon">⚙️</span>設定</button>
+    <div class="home-header">
+      <div>
+        <h1><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20L19 5"></path><path d="M14 5h5v5"></path><path d="M6 15l3 3M8 13l3 3"></path></svg></span>ArrowNote</h1>
+        
+      </div>
+      <button class="home-settings-btn" data-go="settings" aria-label="設定" title="設定"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19 13.5v-3l-2-.7a6.9 6.9 0 0 0-.7-1.6l.9-1.9-2.1-2.1-1.9.9a6.9 6.9 0 0 0-1.6-.7L10.5 2h-3l-.7 2a6.9 6.9 0 0 0-1.6.7l-1.9-.9-2.1 2.1.9 1.9a6.9 6.9 0 0 0-.7 1.6L0 10.5v3l2 .7c.2.6.4 1.1.7 1.6l-.9 1.9 2.1 2.1 1.9-.9c.5.3 1 .5 1.6.7l.7 2h3l.7-2c.6-.2 1.1-.4 1.6-.7l1.9.9 2.1-2.1-.9-1.9c.3-.5.5-1 .7-1.6l2-.7z" transform="translate(1.5 0) scale(.875)"></path></svg></span></button>
+    </div>
+
+    <div class="home-dashboard compact-home-dashboard">
+      <div class="home-distance-select-row">
+        <span>距離選択</span>
+        <select id="homeDistanceSelect" class="home-distance-select" aria-label="距離選択">
+          <option value="18m">18m</option>
+          <option value="30m">30m</option>
+          <option value="50m">50m</option>
+          <option value="70m">70m</option>
+          <option value="90m">90m</option>
+        </select>
+      </div>
+      <div class="home-kpi-grid">
+        <div class="home-kpi"><span>BEST</span><strong id="homeBest">—</strong></div>
+        <div class="home-kpi"><span>AVERAGE</span><strong id="homeAverage">—</strong></div>
+        <div class="home-kpi"><span>LAST 5 AVG</span><strong id="homeRecent5">—</strong></div>
+        <div class="home-kpi"><span>X率</span><strong id="homeXRate">—</strong></div>
+        <div class="home-kpi"><span>10率</span><strong id="homeTenRate">—</strong></div>
+        <div class="home-kpi"><span>ミスショット率</span><strong id="homeMissRate">—</strong></div>
+        <div class="home-kpi home-kpi-half"><span>平均/射</span><strong id="homePerArrow">—</strong></div>
+        <div class="home-kpi home-kpi-half"><span>グルーピング半径</span><strong id="homeGroupingRadius">—</strong></div>
+      </div>
+    </div>
+
+    <div class="home-actions">
+      <button class="home-primary-action" data-go="distance">
+        <span class="home-action-icon home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="4"></circle><circle cx="12" cy="12" r="1"></circle><path d="M12 1v3M12 20v3M1 12h3M20 12h3"></path></svg></span>
+        <span>点取り</span>
+      </button>
+
+      <div class="home-action-grid">
+        <button class="home-action-card" data-go="records"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6M9 12h6M9 16h4"></path></svg></span><strong>記録</strong></button>
+        <button class="home-action-card home-action-disabled" type="button"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16"></path><path d="M7 15l4-4 3 2 4-6"></path><circle cx="7" cy="15" r=".7"></circle><circle cx="11" cy="11" r=".7"></circle><circle cx="14" cy="13" r=".7"></circle><circle cx="18" cy="7" r=".7"></circle></svg></span><strong>分析</strong><small>COMING SOON</small></button>
+        <button class="home-action-card" data-go="arrows"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20L19 5"></path><path d="M14 5h5v5"></path><path d="M6 15l3 3M8 13l3 3"></path></svg></span><strong>本数</strong></button>
+        <button class="home-action-card" data-go="consumables"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l1 4-2 8H7l-2-8 1-4z"></path><path d="M9 7V5h6v2M9 12h6M12 9v6"></path></svg></span><strong>消耗品管理</strong></button>
+      </div>
     </div>
   </section>
 
@@ -164,10 +579,21 @@
       <button class="distance-btn" data-distance="70m">70m</button>
       <button class="distance-btn" data-distance="90m">90m</button>
     </div>
-    <div class="card muted">30mは1エンド3射。18m・50m・70m・90mは1エンド6射。</div>
+    <div class="card muted">18mは1エンド3射・10エンド。30m・50m・70m・90mは1エンド6射・6エンド。</div>
   </section>
 
-  <section id="scoreScreen" class="screen">
+    <section id="scoreModeScreen" class="screen">
+    <div class="topbar">
+      <button class="back" data-go="distance">← 距離</button>
+      <div class="topbar-title"><strong>点取り方法</strong><div class="muted" id="modeDistanceLabel">70m</div></div>
+    </div>
+    <div class="menu" style="margin-top:18px">
+      <button class="menu-btn" data-score-mode="grouping"><span class="menu-icon">🎯</span><span>着弾位置込み<div class="muted" style="margin-top:4px">的をタップして着弾位置も記録</div></span></button>
+      <button class="menu-btn secondary" data-score-mode="score"><span class="menu-icon">🔢</span><span>スコアのみ<div class="muted" style="margin-top:4px">点数だけをボタンで入力</div></span></button>
+    </div>
+  </section>
+
+<section id="scoreScreen" class="screen">
     <div class="topbar">
       <button class="back" data-go="distance">← 距離</button>
       <div class="topbar-title"><strong id="scoreTitle">70m 点取り</strong><div class="muted" id="arrowRule">1エンド 6射</div></div>
@@ -177,22 +603,56 @@
       <div style="display:flex;justify-content:space-between;align-items:center"><strong id="endLabel">End 1</strong><span class="badge" id="shotCount">0 / 6</span></div>
       <div class="target-wrap"><canvas id="target" width="900" height="900"></canvas></div>
       <div id="shots" class="shots"></div>
-      <div class="stats">
+      <div id="scoreKeypad" class="score-keypad" style="display:none">
+        <button data-score-value="X">X</button>
+        <button data-score-value="10">10</button>
+        <button data-score-value="9">9</button>
+        <button data-score-value="8">8</button>
+        <button data-score-value="7">7</button>
+        <button data-score-value="6">6</button>
+        <button data-score-value="5">5</button>
+        <button data-score-value="4">4</button>
+        <button data-score-value="3">3</button>
+        <button data-score-value="2">2</button>
+        <button data-score-value="1">1</button>
+        <button data-score-value="0">0</button>
+      </div>
+      <div class="row"><button id="prevEnd" class="secondary compact-action" aria-label="前のエンド" title="前のエンド">←</button><button id="undo" class="secondary compact-action" aria-label="戻す" title="戻す"><span class="compact-label">戻す</span></button><button id="finish" class="compact-finish" aria-label="次エンドへ" title="次エンドへ"><span class="compact-label">次エンドへ</span></button></div>
+    </div>
+
+    <div class="card">
+      <div class="stats" style="margin-bottom:14px">
         <div class="stat"><strong id="endScore">0</strong><span>END</span></div>
         <div class="stat"><strong id="totalScore">0</strong><span>TOTAL</span></div>
         <div class="stat"><strong id="tens">0</strong><span>10</span></div>
         <div class="stat"><strong id="xs">0</strong><span>X</span></div>
       </div>
-      <div class="row"><button id="prevEnd" class="secondary">← 前のエンド</button><button id="undo" class="secondary">1本戻す</button><button id="finish">エンド確定</button></div>
-    </div>
-
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center"><strong>履歴</strong><button id="reset" class="danger" style="width:auto;padding:8px 12px;font-size:13px">全削除</button></div>
+      <div style="display:flex;justify-content:space-between;align-items:center"><strong>履歴</strong><button id="reset" class="danger compact-reset" aria-label="点取りを全削除" title="点取りを全削除">×</button></div>
       <div id="history" style="margin-top:8px"></div>
     </div>
   </section>
 
-  <section id="summaryScreen" class="screen">
+    <section id="finalConfirmScreen" class="screen">
+    <div class="topbar">
+      <button class="back" id="finalConfirmBack">← 戻って修正</button>
+      <div class="topbar-title"><strong>最終エンド確認</strong><div class="muted" id="finalConfirmMeta"></div></div>
+    </div>
+    <div class="card">
+      <div class="summary-total"><span class="muted">TOTAL SCORE</span><strong id="finalConfirmScore">0</strong></div>
+      <div class="summary-grid">
+        <div class="stat"><strong id="finalConfirmTens">0</strong><span>10</span></div>
+        <div class="stat"><strong id="finalConfirmXs">0</strong><span>X</span></div>
+        <div class="stat"><strong id="finalConfirmArrows">0</strong><span>ARROWS</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <strong>エンド別</strong>
+      <div id="finalConfirmEnd" class="end-table"></div>
+    </div>
+    <button id="goToSummary" style="margin-top:14px">スコア確認へ</button>
+  </section>
+
+<section id="summaryScreen" class="screen">
     <div class="topbar">
       <button class="back" id="summaryBack">← 点取り</button>
       <div class="topbar-title"><strong>スコア</strong><div class="muted" id="summaryDistance">70m / 6エンド</div></div>
@@ -222,21 +682,7 @@
   <section id="recordsScreen" class="screen">
     <div class="topbar">
       <button class="back" data-go="home">← ホーム</button>
-      <div class="topbar-title"><strong>記録</strong><div class="muted">距離を選択</div></div>
-    </div>
-    <div class="distance-grid">
-      <button class="distance-btn" data-record-distance="18m">18m</button>
-      <button class="distance-btn" data-record-distance="30m">30m</button>
-      <button class="distance-btn" data-record-distance="50m">50m</button>
-      <button class="distance-btn" data-record-distance="70m">70m</button>
-      <button class="distance-btn" data-record-distance="90m">90m</button>
-    </div>
-  </section>
-
-  <section id="recordDatesScreen" class="screen">
-    <div class="topbar">
-      <button class="back" data-go="records">← 距離</button>
-      <div class="topbar-title"><strong id="recordDatesTitle">記録</strong><div class="muted">日付を選択</div></div>
+      <div class="topbar-title"><strong>記録</strong><div class="muted">日付を選択</div></div>
     </div>
     <div id="recordDatesList" class="menu" style="margin-top:18px"></div>
   </section>
@@ -274,11 +720,18 @@
   <section id="impactScreen" class="screen">
     <div class="topbar">
       <button class="back" id="impactBack">← 記録</button>
-      <div class="topbar-title"><strong id="impactName">グルーピング</strong><div class="muted" id="impactMeta"></div></div>
+      <div class="topbar-title"><strong id="impactName">着弾位置</strong><div class="muted" id="impactMeta"></div></div>
     </div>
     <div class="card">
+      <div class="grouping-metric">
+        <div>
+          <span class="muted">グルーピング半径</span>
+          <strong id="groupingRadius">—</strong>
+        </div>
+        <div class="muted grouping-help">着弾の中心から各矢までの平均距離</div>
+      </div>
       <div class="impact-wrap"><canvas id="impactTarget" width="900" height="900"></canvas></div>
-      <div class="muted" style="text-align:center;margin-top:8px">6エンドのグルーピングを色分けして表示しています</div>
+      <div class="muted" style="text-align:center;margin-top:8px">エンドごとの着弾位置を色分けして表示しています</div>
       <div id="groupingLegend" class="grouping-legend"></div>
     </div>
   </section>
@@ -320,10 +773,11 @@ const screens = {
   consumables: document.getElementById('consumablesScreen'),
   consumableDetail: document.getElementById('consumableDetailScreen'),
   distance: document.getElementById('distanceScreen'),
+  scoreMode: document.getElementById('scoreModeScreen'),
   score: document.getElementById('scoreScreen'),
+  finalConfirm: document.getElementById('finalConfirmScreen'),
   summary: document.getElementById('summaryScreen'),
   records: document.getElementById('recordsScreen'),
-  recordDates: document.getElementById('recordDatesScreen'),
   recordDay: document.getElementById('recordDayScreen'),
   detail: document.getElementById('recordDetailScreen'),
   impact: document.getElementById('impactScreen'),
@@ -334,7 +788,9 @@ function showScreen(name){
   Object.values(screens).forEach(s=>s.classList.remove('active'));
   screens[name].classList.add('active');
   if(name==='arrows') renderArrowCounts();
+  if(name==='home') renderHomeDashboard();
   window.scrollTo(0,0);
+  if(name==='records') renderRecordDates();
 }
 document.querySelectorAll('[data-go]').forEach(btn=>btn.addEventListener('click',()=>showScreen(btn.dataset.go)));
 document.querySelectorAll('[data-placeholder]').forEach(btn=>btn.addEventListener('click',()=>{
@@ -351,6 +807,8 @@ let state = JSON.parse(localStorage.getItem('archeryState') || 'null') || {end:1
 state.distance = state.distance || '70m';
 state.arrowsPerEnd = state.arrowsPerEnd || 6;
 state.currentEndCounted = Boolean(state.currentEndCounted);
+state.mode = state.mode || 'grouping';
+state.maxEnds = endsForDistance(state.distance);
 
 function save(){ localStorage.setItem('archeryState', JSON.stringify(state)); }
 function getRecords(){
@@ -549,26 +1007,148 @@ function deleteConsumableItem(id){
   if(setConsumableStore(store)) renderConsumableItems();
 }
 
+
+
+let homeSelectedDistance='70m';
+
+function renderHomeDashboard(){
+  const distanceSelect=document.getElementById('homeDistanceSelect');
+  if(distanceSelect){
+    distanceSelect.value=homeSelectedDistance;
+    distanceSelect.onchange=()=>{
+      homeSelectedDistance=distanceSelect.value;
+      renderHomeDashboard();
+    };
+  }
+  const records=getRecords()
+    .filter(r=>r.distance===homeSelectedDistance && Number.isFinite(Number(r.total)));
+
+  const bestEl=document.getElementById('homeBest');
+  const avgEl=document.getElementById('homeAverage');
+  const recentEl=document.getElementById('homeRecent5');
+  const tenEl=document.getElementById('homeTenRate');
+  const xEl=document.getElementById('homeXRate');
+  const perArrowEl=document.getElementById('homePerArrow');
+  const missEl=document.getElementById('homeMissRate');
+  const groupingEl=document.getElementById('homeGroupingRadius');
+
+  if(records.length){
+    const totals=records.map(r=>Number(r.total));
+    const best=Math.max(...totals);
+    const avg=totals.reduce((a,b)=>a+b,0)/totals.length;
+
+    const sorted=[...records].sort((a,b)=>{
+      const da=a.recordedAt || a.recordDate || '';
+      const db=b.recordedAt || b.recordDate || '';
+      return db.localeCompare(da);
+    });
+    const recent=sorted.slice(0,5).map(r=>Number(r.total));
+    const recentAvg=recent.reduce((a,b)=>a+b,0)/recent.length;
+
+    let arrows=0, tens=0, xs=0, scoreSum=0;
+    records.forEach(r=>{
+      (r.ends||[]).forEach(e=>{
+        const shots=e.shotData||[];
+        if(shots.length){
+          shots.forEach(sh=>{
+            arrows++;
+            scoreSum+=Number(sh.score)||0;
+            if(Number(sh.score)===10) tens++;
+            if(sh.isX) xs++;
+          });
+        }else if(Array.isArray(e.shots)){
+          e.shots.forEach(v=>{
+            arrows++;
+            const score=typeof v==='object' ? Number(v.score)||0 : Number(v)||0;
+            scoreSum+=score;
+            if(score===10) tens++;
+            if(typeof v==='object' && v.isX) xs++;
+          });
+        }
+      });
+    });
+
+    const fmt=n=>Number.isInteger(n)?String(n):n.toFixed(1);
+    bestEl.textContent=best;
+    avgEl.textContent=fmt(avg);
+    recentEl.textContent=fmt(recentAvg);
+    tenEl.textContent=arrows ? (tens/arrows*100).toFixed(1)+'%' : '—';
+    xEl.textContent=arrows ? (xs/arrows*100).toFixed(1)+'%' : '—';
+    const shotAverage=arrows ? scoreSum/arrows : null;
+    perArrowEl.textContent=shotAverage!==null ? shotAverage.toFixed(2) : '—';
+
+    // "平均-2以下" means scores less than or equal to two points below
+    // the selected distance's per-arrow average.
+    let missShots=0;
+    if(shotAverage!==null){
+      records.forEach(r=>{
+        (r.ends||[]).forEach(e=>{
+          const shots=e.shotData||[];
+          if(shots.length){
+            shots.forEach(sh=>{
+              if((Number(sh.score)||0) <= shotAverage-2) missShots++;
+            });
+          }else if(Array.isArray(e.shots)){
+            e.shots.forEach(v=>{
+              const score=typeof v==='object' ? Number(v.score)||0 : Number(v)||0;
+              if(score <= shotAverage-2) missShots++;
+            });
+          }
+        });
+      });
+    }
+    missEl.textContent=arrows ? (missShots/arrows*100).toFixed(1)+'%' : '—';
+
+    const groupingRecords=sorted
+      .filter(r=>(r.mode||'grouping')!=='score')
+      .map(r=>({rec:r,radius:groupingRadiusCm(r)}))
+      .filter(x=>x.radius!==null)
+      .slice(0,5);
+    if(groupingRecords.length){
+      const groupingAvg=groupingRecords.reduce((sum,x)=>sum+x.radius,0)/groupingRecords.length;
+      groupingEl.textContent=`${groupingAvg.toFixed(1)} cm`;
+    }else{
+      groupingEl.textContent='—';
+    }
+  }else{
+    [bestEl,avgEl,recentEl,tenEl,xEl,perArrowEl,missEl,groupingEl].forEach(el=>el.textContent='—');
+  }
+}
+
 function defaultRecordName(){
   const base=localDateString();
   const sameDayCount=getRecords().filter(r=>r.recordDate===base).length;
   return sameDayCount===0 ? base : `${base} (${sameDayCount})`;
 }
 function arrowsForDistance(distance){ return distance === '18m' ? 3 : 6; }
-function startScoring(distance){
-  state.distance = distance;
-  state.arrowsPerEnd = arrowsForDistance(distance);
-  state.end = 1;
-  state.shots = [];
-  state.total = 0;
-  state.tens = 0;
-  state.xs = 0;
-  state.currentEndCounted = false;
+function endsForDistance(distance){ return distance === '18m' ? 10 : 6; }
+let pendingDistance='70m';
+
+function chooseScoreMode(distance){
+  pendingDistance=distance;
+  document.getElementById('modeDistanceLabel').textContent=distance;
+  showScreen('scoreMode');
+}
+function startScoring(distance, mode){
+  state={
+    distance,
+    mode,
+    arrowsPerEnd:arrowsForDistance(distance),
+    maxEnds:endsForDistance(distance),
+    end:1,
+    shots:[],
+    total:0,
+    tens:0,
+    xs:0,
+    history:[],
+    currentEndCounted:false
+  };
   save();
   render();
   showScreen('score');
 }
-document.querySelectorAll('[data-distance]').forEach(btn=>btn.addEventListener('click',()=>startScoring(btn.dataset.distance)));
+document.querySelectorAll('[data-distance]').forEach(btn=>btn.addEventListener('click',()=>chooseScoreMode(btn.dataset.distance)));
+document.querySelectorAll('[data-score-mode]').forEach(btn=>btn.addEventListener('click',()=>startScoring(pendingDistance,btn.dataset.scoreMode)));
 
 function ringColor(score){ if(score>=9) return '#f3d33b'; if(score>=7) return '#e33b35'; if(score>=5) return '#3a7bd5'; if(score>=3) return '#111'; if(score>=1) return '#eee'; return '#cfd3da'; }
 function drawTarget(){
@@ -595,9 +1175,22 @@ function canvasPoint(e){
 }
 function addShot(e){
   e.preventDefault();
+  if(state.mode==='score') return;
   const n=state.arrowsPerEnd; if(state.shots.length>=n) return;
   const p=canvasPoint(e); const s=scoreFromPoint(p.x,p.y); state.shots.push({...p,...s}); save(); render();
 }
+function addScoreOnly(value){
+  const n=state.arrowsPerEnd;
+  if(state.shots.length>=n) return;
+  const isX=value==='X';
+  const score=isX ? 10 : Number(value);
+  state.shots.push({score,isX});
+  save();
+  render();
+}
+document.querySelectorAll('[data-score-value]').forEach(btn=>{
+  btn.addEventListener('click',()=>addScoreOnly(btn.dataset.scoreValue));
+});
 canvas.addEventListener('click', addShot);
 canvas.addEventListener('touchstart', addShot, {passive:false});
 
@@ -625,19 +1218,23 @@ document.getElementById('finish').onclick=()=>{
   if(!state.currentEndCounted) addArrowCount(isZeroEnd ? state.arrowsPerEnd : state.shots.length);
   state.total+=score; state.tens+=tens; state.xs+=xs;
   state.history.unshift({
-    end:state.end, score, tens, xs, distance:state.distance,
+    end:state.end, score, tens, xs, distance:state.distance, mode:state.mode,
     shots:recordedShots,
-    shotData:state.shots.map(s=>({x:s.x,y:s.y,score:s.score,isX:s.isX}))
+    shotData:state.shots.map(s=>({x:s.x ?? null,y:s.y ?? null,score:s.score,isX:s.isX}))
   });
-  if(state.end>=6){
-    state.shots=[]; save(); render(); openSummary(); return;
+  if(state.end>=state.maxEnds){
+    state.shots=[];
+    save();
+    render();
+    openFinalConfirm();
+    return;
   }
   state.end++; state.shots=[]; state.currentEndCounted=false; save(); render();
 };
 document.getElementById('reset').onclick=()=>{
   if(confirm('すべての記録を削除しますか？')){
-    const d=state.distance, n=state.arrowsPerEnd;
-    state={end:1,shots:[],total:0,tens:0,xs:0,history:[],distance:d,arrowsPerEnd:n,currentEndCounted:false};
+    const d=state.distance, n=arrowsForDistance(state.distance), max=endsForDistance(state.distance);
+    state={end:1,shots:[],total:0,tens:0,xs:0,history:[],distance:d,mode:state.mode||'grouping',arrowsPerEnd:n,maxEnds:max,currentEndCounted:false};
     save();render();
   }
 };
@@ -646,8 +1243,38 @@ function orderedEnds(history){ return [...history].sort((a,b)=>a.end-b.end); }
 function endRowsHtml(history){
   return orderedEnds(history).map(item=>`<div class="end-row"><strong>End ${item.end}</strong><span class="muted">${item.shots.join(' ・ ')}</span><strong>${item.score}</strong></div>`).join('');
 }
+
+function openFinalConfirm(){
+  const finalEnd=state.history.find(h=>h.end===state.maxEnds);
+  document.getElementById('finalConfirmMeta').textContent=`${state.distance} / ${state.maxEnds}エンド`;
+  document.getElementById('finalConfirmScore').textContent=state.total;
+  document.getElementById('finalConfirmTens').textContent=state.tens;
+  document.getElementById('finalConfirmXs').textContent=state.xs;
+  document.getElementById('finalConfirmArrows').textContent=state.history.reduce((n,e)=>n+(e.shots?.length||0),0);
+  document.getElementById('finalConfirmEnd').innerHTML=endRowsHtml(state.history);
+  showScreen('finalConfirm');
+}
+function restoreFinalEndForEdit(){
+  const finalEndNo=state.maxEnds || endsForDistance(state.distance);
+  const last=state.history.find(h=>h.end===finalEndNo);
+  if(last){
+    state.total-=Number(last.score)||0;
+    state.tens-=Number(last.tens)||0;
+    state.xs-=Number(last.xs)||0;
+    state.history=state.history.filter(h=>h.end!==finalEndNo);
+    state.end=finalEndNo;
+    state.shots=(last.shotData||[]).map(sh=>({...sh}));
+    state.currentEndCounted=true;
+    save();
+    render();
+  }
+  showScreen('score');
+}
+document.getElementById('finalConfirmBack').onclick=restoreFinalEndForEdit;
+document.getElementById('goToSummary').onclick=()=>openSummary();
+
 function openSummary(){
-  document.getElementById('summaryDistance').textContent=`${state.distance} / 6エンド`;
+  document.getElementById('summaryDistance').textContent=`${state.distance} / ${state.maxEnds}エンド`;
   document.getElementById('summaryScore').textContent=state.total;
   document.getElementById('summaryTens').textContent=state.tens;
   document.getElementById('summaryXs').textContent=state.xs;
@@ -657,20 +1284,9 @@ function openSummary(){
   document.getElementById('recordMemo').value='';
   showScreen('summary');
 }
-document.getElementById('summaryBack').onclick=()=>{
-  const last=state.history.find(h=>h.end===6);
-  if(last){
-    state.total-=last.score; state.tens-=last.tens; state.xs-=last.xs;
-    state.history=state.history.filter(h=>h.end!==6);
-    state.end=6;
-    state.shots=(last.shotData||[]).map(s=>({...s}));
-    state.currentEndCounted=true;
-    save(); render();
-  }
-  showScreen('score');
-};
+document.getElementById('summaryBack').onclick=restoreFinalEndForEdit;
 document.getElementById('registerRecord').onclick=()=>{
-  if(state.history.length!==6) return;
+  if(state.history.length!==(state.maxEnds || endsForDistance(state.distance))) return;
   const input=document.getElementById('recordName');
   const name=input.value.trim() || defaultRecordName();
   const memo=(document.getElementById('recordMemo').value||'').trim();
@@ -682,6 +1298,7 @@ document.getElementById('registerRecord').onclick=()=>{
     recordDate:localDateString(),
     distance:state.distance,
     arrowsPerEnd:state.arrowsPerEnd,
+    mode:state.mode||'grouping',
     total:state.total,
     tens:state.tens,
     xs:state.xs,
@@ -689,29 +1306,19 @@ document.getElementById('registerRecord').onclick=()=>{
     ends:orderedEnds(state.history)
   });
   if(!setRecords(records)) return;
-  const d=state.distance, n=state.arrowsPerEnd;
-  state={end:1,shots:[],total:0,tens:0,xs:0,history:[],distance:d,arrowsPerEnd:n,currentEndCounted:false};
-  save(); render(); currentRecordDistance=null; currentRecordDate=null; showScreen('records');
+  const d=state.distance, n=arrowsForDistance(state.distance), max=endsForDistance(state.distance);
+  state={end:1,shots:[],total:0,tens:0,xs:0,history:[],distance:d,mode:state.mode||'grouping',arrowsPerEnd:n,maxEnds:max,currentEndCounted:false};
+  save(); render(); currentRecordDistance=null; currentRecordDate=null; showScreen('home');
 };
+
 
 let currentRecordDistance=null;
 let currentRecordDate=null;
 
-function openRecordDistance(distance){
-  currentRecordDistance=distance;
-  currentRecordDate=null;
-  document.getElementById('recordDatesTitle').textContent=`${distance} 記録`;
-  renderRecordDates();
-  showScreen('recordDates');
-}
-document.querySelectorAll('[data-record-distance]').forEach(btn=>{
-  btn.addEventListener('click',()=>openRecordDistance(btn.dataset.recordDistance));
-});
-
 function renderRecordDates(){
   const el=document.getElementById('recordDatesList');
-  if(!el || !currentRecordDistance) return;
-  const records=getRecords().filter(r=>r.distance===currentRecordDistance);
+  if(!el) return;
+  const records=getRecords();
   const grouped={};
   records.forEach(rec=>{
     const day=rec.recordDate || (rec.recordedAt ? rec.recordedAt.slice(0,10) : '日付不明');
@@ -720,17 +1327,16 @@ function renderRecordDates(){
   });
   const days=Object.keys(grouped).sort((a,b)=>b.localeCompare(a));
   if(!days.length){
-    el.innerHTML='<div class="empty-state">この距離の記録はまだありません</div>';
+    el.innerHTML='<div class="empty-state">記録はまだありません</div>';
     return;
   }
   el.innerHTML=days.map(day=>{
     const count=grouped[day].length;
-    const best=Math.max(...grouped[day].map(r=>Number(r.total)||0));
     return `<button class="menu-btn secondary record-date-btn" data-record-date="${day}">
       <span class="menu-icon">📅</span>
       <span style="flex:1">
         <strong style="display:block">${day}</strong>
-        <span class="muted">${count}件 ・ BEST ${best}</span>
+        <span class="muted">${count}件の記録</span>
       </span>
     </button>`;
   }).join('');
@@ -741,8 +1347,9 @@ function renderRecordDates(){
 
 function openRecordDay(day){
   currentRecordDate=day;
+  currentRecordDistance=null;
   document.getElementById('recordDayTitle').textContent=day;
-  document.getElementById('recordDayMeta').textContent=currentRecordDistance || '';
+  document.getElementById('recordDayMeta').textContent='この日の記録';
   renderRecords();
   showScreen('recordDay');
 }
@@ -751,9 +1358,8 @@ function renderRecords(){
   const el=document.getElementById('recordsList');
   if(!el) return;
   const records=getRecords().filter(rec=>{
-    const distanceOk=!currentRecordDistance || rec.distance===currentRecordDistance;
-    const dateOk=!currentRecordDate || rec.recordDate===currentRecordDate;
-    return distanceOk && dateOk;
+    const day=rec.recordDate || (rec.recordedAt ? rec.recordedAt.slice(0,10) : '日付不明');
+    return !currentRecordDate || day===currentRecordDate;
   });
   el.innerHTML='';
   if(!records.length){
@@ -763,7 +1369,9 @@ function renderRecords(){
   records.forEach(rec=>{
     const b=document.createElement('button');
     b.className='record-item secondary';
-    b.innerHTML=`<span class="record-main"><div class="record-name"></div><div class="muted">${rec.distance} ・ ${rec.arrowsPerEnd*6}射</div></span><span class="record-score">${rec.total}</span>`;
+    const arrows=(rec.ends||[]).reduce((n,e)=>n+(e.shots?.length||0),0) || (endsForDistance(rec.distance)*rec.arrowsPerEnd);
+    const modeLabel=(rec.mode||'grouping')==='score' ? 'スコアのみ' : '着弾位置込み';
+    b.innerHTML=`<span class="record-main"><div class="record-name"></div><div class="muted">${rec.distance} ・ ${modeLabel} ・ ${arrows}射</div></span><span class="record-score">${rec.total}</span>`;
     b.querySelector('.record-name').textContent=rec.name;
     b.onclick=()=>openRecordDetail(rec.id);
     el.appendChild(b);
@@ -773,22 +1381,26 @@ function renderRecords(){
 function openRecordDetail(id){
   const rec=getRecords().find(r=>r.id===id); if(!rec) return;
   currentDetailRecordId=id;
-  if(!currentRecordDistance) currentRecordDistance=rec.distance;
-  if(!currentRecordDate) currentRecordDate=rec.recordDate;
+  if(!currentRecordDate) currentRecordDate=rec.recordDate || (rec.recordedAt ? rec.recordedAt.slice(0,10) : null);
   document.getElementById('detailName').textContent=rec.name;
-  document.getElementById('detailMeta').textContent=`${rec.recordDate} ・ ${rec.distance}`;
+  const detailMode=(rec.mode||'grouping')==='score' ? 'スコアのみ' : '着弾位置込み';
+  document.getElementById('detailMeta').textContent=`${rec.recordDate} ・ ${rec.distance} ・ ${detailMode}`;
   document.getElementById('detailScore').textContent=rec.total;
   document.getElementById('detailTens').textContent=rec.tens;
   document.getElementById('detailXs').textContent=rec.xs;
   document.getElementById('detailArrows').textContent=(rec.ends||[]).reduce((n,e)=>n+(e.shots?.length||0),0);
   document.getElementById('detailEnds').innerHTML=endRowsHtml(rec.ends);
   document.getElementById('detailMemo').value=rec.memo || '';
+  const groupingBtn=document.getElementById('viewImpacts');
+  const hasGrouping=(rec.mode||'grouping')!=='score' && (rec.ends||[]).some(e=>(e.shotData||[]).some(sh=>Number.isFinite(sh.x)&&Number.isFinite(sh.y)));
+  groupingBtn.style.display=hasGrouping?'block':'none';
   showScreen('detail');
 }
 
 document.getElementById('recordDayBack').onclick=()=>{
+  currentRecordDate=null;
   renderRecordDates();
-  showScreen('recordDates');
+  showScreen('records');
 };
 document.getElementById('detailBack').onclick=()=>{
   if(currentRecordDate){
@@ -811,6 +1423,34 @@ document.getElementById('saveDetailMemo').onclick=()=>{
   btn.textContent='保存しました';
   setTimeout(()=>{ btn.textContent=old; },900);
 };
+
+function targetDiameterCm(distance){
+  // Standard target face diameters used by this app.
+  if(distance==='18m') return 40;
+  if(distance==='30m' || distance==='50m') return 80;
+  if(distance==='70m' || distance==='90m') return 122;
+  return null;
+}
+
+function groupingRadiusCm(rec){
+  const shots=[];
+  orderedEnds(rec.ends||[]).forEach(end=>{
+    (end.shotData||[]).forEach(sh=>{
+      if(Number.isFinite(Number(sh.x)) && Number.isFinite(Number(sh.y))){
+        shots.push({x:Number(sh.x),y:Number(sh.y)});
+      }
+    });
+  });
+  if(!shots.length) return null;
+
+  const cx=shots.reduce((sum,p)=>sum+p.x,0)/shots.length;
+  const cy=shots.reduce((sum,p)=>sum+p.y,0)/shots.length;
+  const meanRadiusPx=shots.reduce((sum,p)=>sum+Math.hypot(p.x-cx,p.y-cy),0)/shots.length;
+
+  // The drawn scoring face has radius 410px, so its full diameter is 820px.
+  const diameter=targetDiameterCm(rec.distance);
+  return diameter ? meanRadiusPx*(diameter/820) : null;
+}
 
 function drawImpactTarget(rec){
   const c=450, maxR=410;
@@ -842,6 +1482,8 @@ function openImpactView(id){
   const rec=getRecords().find(r=>r.id===id); if(!rec) return;
   document.getElementById('impactName').textContent=rec.name;
   document.getElementById('impactMeta').textContent=`${rec.recordDate} ・ ${rec.distance}`;
+  const radius=groupingRadiusCm(rec);
+  document.getElementById('groupingRadius').textContent=radius===null ? '—' : `${radius.toFixed(1)} cm`;
   drawImpactTarget(rec);
   showScreen('impact');
 }
@@ -849,12 +1491,22 @@ document.getElementById('viewImpacts').onclick=()=>{ if(currentDetailRecordId) o
 document.getElementById('impactBack').onclick=()=>{ if(currentDetailRecordId) openRecordDetail(currentDetailRecordId); else showScreen('records'); };
 
 function render(){
-  drawTarget();
+  state.mode=state.mode||'grouping';
+  const isScoreOnly=state.mode==='score';
+  const targetWrap=document.querySelector('#scoreScreen .target-wrap');
+  const keypad=document.getElementById('scoreKeypad');
+  if(targetWrap) targetWrap.style.display=isScoreOnly?'none':'flex';
+  if(keypad) keypad.style.display=isScoreOnly?'grid':'none';
+  if(!isScoreOnly) drawTarget();
   const n=state.arrowsPerEnd;
-  document.getElementById('scoreTitle').textContent=`${state.distance} 点取り`;
+  document.getElementById('scoreTitle').textContent=`${state.distance} ${isScoreOnly?'スコアのみ':'着弾位置込み'}`;
   document.getElementById('arrowRule').textContent=`1エンド ${n}射`;
   document.getElementById('endLabel').textContent='End '+state.end;
-  document.getElementById('finish').textContent=state.end===6?'スコア確認':'エンド確定';
+  document.getElementById('finish').innerHTML=state.end===state.maxEnds
+    ? '<span class="compact-label">確認へ</span>'
+    : '<span class="compact-label">次エンドへ</span>';
+  document.getElementById('finish').title=state.end===state.maxEnds?'最終エンド確認':'次エンドへ';
+  document.getElementById('finish').setAttribute('aria-label',state.end===state.maxEnds?'最終エンド確認':'次エンドへ');
   const prevBtn=document.getElementById('prevEnd');
   prevBtn.disabled=state.end<=1;
   prevBtn.style.opacity=state.end<=1?'.45':'1';
@@ -881,6 +1533,7 @@ function render(){
   }
 }
 render();
+renderHomeDashboard();
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
 

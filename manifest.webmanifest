@@ -1,6 +1,6 @@
 {
-  "name": "Archery Score",
-  "short_name": "ArcheryScore",
+  "name": "ArrowNote",
+  "short_name": "ArrowNote",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0f1115",

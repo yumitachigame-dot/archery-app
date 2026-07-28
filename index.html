@@ -466,6 +466,714 @@
       #homeScreen .home-action-card { min-height:76px; }
     }
 
+
+    /* v54 — Ianseo-inspired score-only layout */
+    #scoreScreen.score-only-mode .card:first-of-type {
+      padding:12px;
+    }
+    #scoreScreen.score-only-mode .target-wrap {
+      display:none !important;
+    }
+    #scoreScreen.score-only-mode #scoreKeypad {
+      display:grid !important;
+    }
+    #scoreScreen.score-only-mode #shots {
+      margin:10px 0 12px;
+      gap:7px;
+    }
+    #scoreScreen.score-only-mode #shots .shot {
+      min-width:0;
+      height:42px;
+      border-radius:10px;
+      font-size:18px;
+      font-weight:800;
+      background:#242a34;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    #scoreScreen.score-only-mode .score-only-totals {
+      display:grid !important;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:10px;
+    }
+    #scoreScreen.score-only-mode .score-only-totals > div {
+      background:#1e232c;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:12px;
+      text-align:center;
+      padding:8px 6px;
+    }
+    #scoreScreen.score-only-mode .score-only-totals span {
+      display:block;
+      font-size:9px;
+      letter-spacing:.08em;
+      color:#8f99aa;
+      font-weight:800;
+    }
+    #scoreScreen.score-only-mode .score-only-totals strong {
+      display:block;
+      margin-top:2px;
+      font-size:28px;
+      line-height:1;
+      font-variant-numeric:tabular-nums;
+    }
+
+    #scoreScreen.score-only-mode .score-keypad {
+      grid-template-columns:repeat(4,1fr);
+      gap:7px;
+      margin-top:4px;
+    }
+    #scoreScreen.score-only-mode .score-keypad button {
+      min-height:58px;
+      border-radius:12px;
+      padding:6px;
+      font-size:22px;
+      font-weight:900;
+      box-shadow:none;
+      border:1px solid rgba(0,0,0,.22);
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="X"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="10"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="9"] {
+      background:#f2d438;
+      color:#161616;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="8"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="7"] {
+      background:#d94a45;
+      color:#fff;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="6"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="5"] {
+      background:#367acb;
+      color:#fff;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="4"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="3"] {
+      background:#17191d;
+      color:#fff;
+      border-color:#555b66;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="2"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="1"] {
+      background:#f2f2f0;
+      color:#17191d;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="0"] {
+      background:#777e89;
+      color:#fff;
+    }
+    #scoreScreen.score-only-mode .row {
+      grid-template-columns:54px 82px 1fr;
+      margin-top:9px;
+    }
+    #scoreScreen.score-only-mode .compact-action,
+    #scoreScreen.score-only-mode .compact-finish {
+      min-height:44px;
+    }
+
+    /* Hide the verbose history/stat card while actively entering score-only.
+       Final confirmation still shows the full round before saving. */
+    #scoreScreen.score-only-mode > .card:last-of-type {
+      display:none;
+    }
+
+
+    .grouping-metrics {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-bottom:12px;
+    }
+    .grouping-metric-item {
+      background:#1f242d;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:12px;
+      padding:10px;
+      text-align:center;
+    }
+    .grouping-metric-item strong {
+      display:block;
+      margin-top:3px;
+      font-size:24px;
+    }
+    .grouping-metric-item small {
+      display:block;
+      margin-top:4px;
+      color:#8c96a6;
+      font-size:9px;
+      line-height:1.35;
+    }
+
+
+    /* v59 — restore KPI divider in the final home row */
+    #homeScreen .home-kpi-grid .home-kpi:nth-child(9) {
+      border-left:1px solid var(--home-line);
+    }
+
+
+    .analysis-filterbar {
+      position:sticky;
+      top:0;
+      z-index:5;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin:8px 0 10px;
+      padding:8px;
+      border-radius:14px;
+      background:rgba(21,24,30,.96);
+      backdrop-filter:blur(8px);
+    }
+    .analysis-filterbar label span {
+      display:block;
+      margin-bottom:4px;
+      color:#8f99aa;
+      font-size:10px;
+      font-weight:700;
+    }
+    .analysis-filterbar select,
+    .analysis-date-range input {
+      width:100%;
+      min-height:38px;
+      padding:6px 9px;
+      border-radius:10px;
+      border:1px solid #3a414d;
+      background:#252b35;
+      color:#fff;
+      font-weight:700;
+    }
+    .analysis-date-range {
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      gap:7px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    .analysis-section-title {
+      margin:15px 2px 7px;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+    .analysis-low-priority {
+      margin-top:22px;
+      color:#c4cad4;
+    }
+    .analysis-card {
+      padding:10px;
+    }
+    .analysis-card canvas {
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .analysis-tabs {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:5px;
+      margin-bottom:10px;
+      padding:4px;
+      border-radius:12px;
+      background:#171b22;
+    }
+    .analysis-tabs button {
+      min-height:36px;
+      padding:6px 3px;
+      border-radius:9px;
+      background:transparent;
+      color:#929cac;
+      box-shadow:none;
+      font-size:12px;
+    }
+    .analysis-tabs button.active {
+      background:#303744;
+      color:#fff;
+    }
+    .analysis-target-wrap {
+      width:100%;
+      display:flex;
+      justify-content:center;
+    }
+    #analysisTarget {
+      width:min(100%,430px);
+      border-radius:12px;
+      background:#15191f;
+    }
+    .analysis-target-metrics {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1px;
+      margin-top:10px;
+      overflow:hidden;
+      border-radius:11px;
+      background:#343a45;
+    }
+    .analysis-target-metrics > div {
+      padding:9px 5px;
+      text-align:center;
+      background:#20252e;
+    }
+    .analysis-target-metrics span {
+      display:block;
+      color:#8e98a9;
+      font-size:9px;
+    }
+    .analysis-target-metrics strong {
+      display:block;
+      margin-top:3px;
+      font-size:18px;
+    }
+
+
+    #analysisScoreChart,
+    #analysisEndChart {
+      width:100% !important;
+      height:auto !important;
+      max-width:none !important;
+      max-height:none !important;
+      border-radius:10px !important;
+      touch-action:auto;
+      background:#171b22;
+    }
+
+
+    .analysis-tabs {
+      grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+      gap:3px !important;
+      padding:3px !important;
+    }
+    .analysis-tabs button {
+      min-width:0;
+      min-height:34px !important;
+      padding:5px 1px !important;
+      font-size:11px !important;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:clip;
+    }
+
+
+    .analysis-sticky-head {
+      position:sticky;
+      top:0;
+      z-index:12;
+      margin:0 -2px 10px;
+      padding:2px 2px 1px;
+      background:rgba(18,21,27,.97);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.045);
+    }
+    .analysis-sticky-head .topbar {
+      margin-top:0;
+      padding-top:6px;
+    }
+    .analysis-sticky-head .analysis-filterbar {
+      position:static !important;
+      margin-bottom:7px;
+      background:transparent;
+      backdrop-filter:none;
+    }
+
+
+    .analysis-date-modal {
+      position:fixed;
+      inset:0;
+      z-index:100;
+      background:rgba(0,0,0,.58);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+    .analysis-date-dialog {
+      width:min(92vw,380px);
+      background:#20252e;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:0 20px 60px rgba(0,0,0,.45);
+    }
+    .analysis-date-dialog-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:14px;
+    }
+    .analysis-date-close {
+      width:34px;
+      min-height:34px;
+      padding:0;
+      border-radius:10px;
+      background:#2b313c;
+      color:#c6ccd6;
+    }
+    .analysis-date-dialog label {
+      display:block;
+      margin-top:10px;
+    }
+    .analysis-date-dialog label span {
+      display:block;
+      margin-bottom:5px;
+      color:#919bab;
+      font-size:11px;
+    }
+    .analysis-date-dialog input {
+      width:100%;
+      min-height:42px;
+      padding:8px 10px;
+      border-radius:11px;
+      border:1px solid #3b4350;
+      background:#171b22;
+      color:#fff;
+      box-sizing:border-box;
+    }
+    .analysis-date-actions {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:16px;
+    }
+
+
+    .analysis-primary-tabs {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:0;
+      margin:8px 0 8px;
+      border-bottom:1px solid rgba(255,255,255,.09);
+    }
+    .analysis-primary-tabs button {
+      position:relative;
+      min-height:40px;
+      padding:7px 4px 10px;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+      color:#747f90;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.12em;
+    }
+    .analysis-primary-tabs button.active {
+      color:#fff;
+      background:transparent;
+    }
+    .analysis-primary-tabs button.active::after {
+      content:"";
+      position:absolute;
+      left:25%;
+      right:25%;
+      bottom:-1px;
+      height:2px;
+      border-radius:2px;
+      background:#fff;
+    }
+    .analysis-workspace {
+      min-height:0;
+    }
+    .analysis-view {
+      display:none;
+      animation:analysisFade .14s ease-out;
+    }
+    .analysis-view.active {
+      display:block;
+    }
+    @keyframes analysisFade {
+      from { opacity:.55; transform:translateY(2px); }
+      to { opacity:1; transform:none; }
+    }
+    .analysis-view-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height:30px;
+      margin:0 3px 5px;
+    }
+    .analysis-view-head strong {
+      font-size:13px;
+    }
+    .analysis-view-head span {
+      color:#7f8998;
+      font-size:10px;
+    }
+    #analysisScoreView,
+    #analysisEndView {
+      padding:6px 4px 2px;
+    }
+    #analysisImpactView .analysis-tabs {
+      margin:0 0 7px;
+    }
+    #analysisImpactView #analysisTarget {
+      width:min(100%,390px);
+    }
+    #analysisImpactView .analysis-target-metrics {
+      margin-top:6px;
+    }
+
+
+    #analysisTarget {
+      width:min(100%,390px) !important;
+      height:auto !important;
+      aspect-ratio:1 / 1;
+      max-width:390px !important;
+      max-height:none !important;
+      border-radius:12px !important;
+      object-fit:contain;
+      touch-action:auto;
+      flex:0 0 auto;
+    }
+    .analysis-target-wrap {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+    }
+
+
+    .analysis-primary-tabs button {
+      font-size:15px !important;
+      font-weight:800 !important;
+      letter-spacing:.04em !important;
+      min-height:44px !important;
+    }
+
+
+    .analysis-inclusion {
+      margin:5px 2px 8px;
+      padding:8px 9px 5px;
+      border-radius:11px;
+      background:#1b2028;
+      border:1px solid rgba(255,255,255,.05);
+    }
+    .analysis-inclusion-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:5px;
+      font-size:11px;
+      color:#9099a8;
+    }
+    .analysis-inclusion-head strong {
+      font-size:15px;
+      color:#fff;
+    }
+    #analysisInclusionSlider {
+      width:100%;
+      accent-color:#9ab9ff;
+      margin:0;
+    }
+    .analysis-inclusion-scale {
+      display:flex;
+      justify-content:space-between;
+      margin-top:1px;
+      color:#657080;
+      font-size:8px;
+    }
+
+
+    .analysis-sticky-head {
+      margin-bottom:4px !important;
+    }
+    .analysis-sticky-head .topbar {
+      min-height:34px;
+      padding-top:2px !important;
+      margin-bottom:1px;
+    }
+    .analysis-sticky-head .analysis-filterbar {
+      margin:2px 0 4px !important;
+      padding:4px !important;
+      gap:6px !important;
+    }
+    .analysis-filterbar label span {
+      margin-bottom:2px !important;
+      font-size:9px !important;
+    }
+    .analysis-filterbar select {
+      min-height:34px !important;
+      padding:4px 8px !important;
+    }
+
+    .analysis-primary-tabs {
+      margin:3px 0 4px !important;
+    }
+    .analysis-primary-tabs button {
+      min-height:38px !important;
+      padding:5px 4px 7px !important;
+    }
+
+    #analysisImpactView .analysis-tabs {
+      margin:0 0 4px !important;
+      padding:2px !important;
+    }
+    #analysisImpactView .analysis-tabs button {
+      min-height:31px !important;
+      padding:3px 1px !important;
+    }
+
+    .analysis-inclusion {
+      display:grid;
+      grid-template-columns:auto auto minmax(0,1fr) auto auto;
+      align-items:center;
+      gap:7px;
+      height:34px;
+      margin:2px 2px 4px !important;
+      padding:0 8px !important;
+      border-radius:10px;
+      box-sizing:border-box;
+    }
+    .analysis-inclusion-label {
+      color:#8f99aa;
+      font-size:10px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+    .analysis-range-edge {
+      color:#c3cad5;
+      font-size:12px;
+      font-weight:800;
+      line-height:1;
+    }
+    #analysisInclusionSlider {
+      width:100%;
+      margin:0 !important;
+      touch-action:none;
+      cursor:pointer;
+    }
+    #analysisInclusionValue {
+      min-width:34px;
+      text-align:right;
+      color:#fff;
+      font-size:13px !important;
+      line-height:1;
+    }
+
+    /* Keep this exact row height when MISS is selected, so the target never jumps. */
+    .analysis-inclusion.is-disabled {
+      opacity:.42;
+    }
+    .analysis-inclusion.is-disabled #analysisInclusionSlider {
+      cursor:not-allowed;
+      filter:grayscale(1);
+    }
+    .analysis-inclusion.is-disabled .analysis-range-edge,
+    .analysis-inclusion.is-disabled .analysis-inclusion-label,
+    .analysis-inclusion.is-disabled #analysisInclusionValue {
+      color:#6f7886 !important;
+    }
+
+    #analysisImpactView #analysisTarget {
+      width:min(100%,340px) !important;
+      max-width:340px !important;
+    }
+    .analysis-target-metrics {
+      margin-top:3px !important;
+    }
+    .analysis-target-metrics > div {
+      padding:6px 4px !important;
+    }
+    .analysis-target-metrics span {
+      font-size:8px !important;
+    }
+    .analysis-target-metrics strong {
+      margin-top:1px !important;
+      font-size:16px !important;
+    }
+
+
+    .analysis-feature-head {
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      min-height:42px;
+      padding:3px 4px 5px;
+    }
+    .analysis-feature-head > div {
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width:0;
+    }
+    .analysis-feature-kicker {
+      color:#697485;
+      font-size:8px;
+      font-weight:800;
+      letter-spacing:.14em;
+    }
+    .analysis-feature-head strong {
+      color:#fff;
+      font-size:15px;
+      line-height:1.2;
+    }
+    #analysisFeatureConfidence {
+      color:#8c96a6;
+      font-size:9px;
+      white-space:nowrap;
+    }
+    .analysis-feature-tabs {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:3px;
+      padding:3px;
+      margin:0 0 5px;
+      border-radius:10px;
+      background:#171b22;
+    }
+    .analysis-feature-tabs button {
+      min-width:0;
+      min-height:31px;
+      padding:3px 1px;
+      border-radius:8px;
+      background:transparent;
+      color:#7f8998;
+      font-size:10px;
+      font-weight:700;
+    }
+    .analysis-feature-tabs button.active {
+      background:#2b323d;
+      color:#fff;
+    }
+    .analysis-feature-chart {
+      padding:2px 2px 0;
+    }
+    .analysis-feature-chart canvas {
+      width:100% !important;
+      height:auto !important;
+      max-height:205px;
+    }
+    .analysis-feature-summary {
+      display:grid;
+      grid-template-columns:1fr auto 1fr 1.05fr;
+      align-items:center;
+      gap:5px;
+      margin:5px 2px 0;
+      padding:7px 8px;
+      border:1px solid rgba(255,255,255,.055);
+      border-radius:11px;
+      background:#1b2028;
+    }
+    .analysis-feature-summary > div:not(.analysis-feature-arrow) {
+      display:flex;
+      flex-direction:column;
+      gap:1px;
+    }
+    .analysis-feature-summary span {
+      color:#7f8998;
+      font-size:8px;
+    }
+    .analysis-feature-summary strong {
+      color:#fff;
+      font-size:14px;
+    }
+    .analysis-feature-arrow {
+      color:#5f6978;
+      font-size:14px;
+    }
+    .analysis-feature-delta {
+      padding-left:8px;
+      border-left:1px solid rgba(255,255,255,.07);
+    }
+
 </style>
 </head>
 <body>
@@ -497,8 +1205,9 @@
         <div class="home-kpi"><span>X率</span><strong id="homeXRate">—</strong></div>
         <div class="home-kpi"><span>10率</span><strong id="homeTenRate">—</strong></div>
         <div class="home-kpi"><span>ミスショット率</span><strong id="homeMissRate">—</strong></div>
-        <div class="home-kpi home-kpi-half"><span>平均/射</span><strong id="homePerArrow">—</strong></div>
-        <div class="home-kpi home-kpi-half"><span>グルーピング半径</span><strong id="homeGroupingRadius">—</strong></div>
+        <div class="home-kpi"><span>平均/射</span><strong id="homePerArrow">—</strong></div>
+        <div class="home-kpi"><span>グルーピング半径</span><strong id="homeGroupingRadius">—</strong></div>
+        <div class="home-kpi"><span>着弾平均距離</span><strong id="homeMeanDistance">—</strong></div>
       </div>
     </div>
 
@@ -510,7 +1219,7 @@
 
       <div class="home-action-grid">
         <button class="home-action-card" data-go="records"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6M9 12h6M9 16h4"></path></svg></span><strong>記録</strong></button>
-        <button class="home-action-card home-action-disabled" type="button"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16"></path><path d="M7 15l4-4 3 2 4-6"></path><circle cx="7" cy="15" r=".7"></circle><circle cx="11" cy="11" r=".7"></circle><circle cx="14" cy="13" r=".7"></circle><circle cx="18" cy="7" r=".7"></circle></svg></span><strong>分析</strong><small>COMING SOON</small></button>
+        <button class="home-action-card" data-go="analysis"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16"></path><path d="M7 15l4-4 3 2 4-6"></path><circle cx="7" cy="15" r=".7"></circle><circle cx="11" cy="11" r=".7"></circle><circle cx="14" cy="13" r=".7"></circle><circle cx="18" cy="7" r=".7"></circle></svg></span><strong>分析</strong></button>
         <button class="home-action-card" data-go="arrows"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20L19 5"></path><path d="M14 5h5v5"></path><path d="M6 15l3 3M8 13l3 3"></path></svg></span><strong>本数</strong></button>
         <button class="home-action-card" data-go="consumables"><span class="home-svg-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l1 4-2 8H7l-2-8 1-4z"></path><path d="M9 7V5h6v2M9 12h6M12 9v6"></path></svg></span><strong>消耗品管理</strong></button>
       </div>
@@ -601,6 +1310,10 @@
 
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center"><strong id="endLabel">End 1</strong><span class="badge" id="shotCount">0 / 6</span></div>
+      <div id="scoreOnlyTotals" class="score-only-totals" style="display:none">
+        <div><span>END</span><strong id="scoreOnlyEndScore">0</strong></div>
+        <div><span>TOTAL</span><strong id="scoreOnlyTotalScore">0</strong></div>
+      </div>
       <div class="target-wrap"><canvas id="target" width="900" height="900"></canvas></div>
       <div id="shots" class="shots"></div>
       <div id="scoreKeypad" class="score-keypad" style="display:none">
@@ -615,7 +1328,7 @@
         <button data-score-value="3">3</button>
         <button data-score-value="2">2</button>
         <button data-score-value="1">1</button>
-        <button data-score-value="0">0</button>
+        <button data-score-value="0">M</button>
       </div>
       <div class="row"><button id="prevEnd" class="secondary compact-action" aria-label="前のエンド" title="前のエンド">←</button><button id="undo" class="secondary compact-action" aria-label="戻す" title="戻す"><span class="compact-label">戻す</span></button><button id="finish" class="compact-finish" aria-label="次エンドへ" title="次エンドへ"><span class="compact-label">次エンドへ</span></button></div>
     </div>
@@ -723,12 +1436,17 @@
       <div class="topbar-title"><strong id="impactName">着弾位置</strong><div class="muted" id="impactMeta"></div></div>
     </div>
     <div class="card">
-      <div class="grouping-metric">
-        <div>
+      <div class="grouping-metrics">
+        <div class="grouping-metric-item">
           <span class="muted">グルーピング半径</span>
           <strong id="groupingRadius">—</strong>
+          <small>着弾の90%が収まる半径</small>
         </div>
-        <div class="muted grouping-help">着弾の中心から各矢までの平均距離</div>
+        <div class="grouping-metric-item">
+          <span class="muted">着弾平均距離</span>
+          <strong id="groupingMeanDistance">—</strong>
+          <small>着弾中心から各矢までの平均距離</small>
+        </div>
       </div>
       <div class="impact-wrap"><canvas id="impactTarget" width="900" height="900"></canvas></div>
       <div class="muted" style="text-align:center;margin-top:8px">エンドごとの着弾位置を色分けして表示しています</div>
@@ -736,7 +1454,139 @@
     </div>
   </section>
 
-  <section id="settingsScreen" class="screen">
+  
+  <section id="analysisScreen" class="screen">
+    <div class="analysis-sticky-head">
+    <div class="topbar">
+      <button class="back" data-go="home">← ホーム</button>
+      <div class="topbar-title"><strong>分析</strong></div>
+    </div>
+
+    <div class="analysis-filterbar">
+      <label>
+        <span>距離</span>
+        <select id="analysisDistance">
+          <option value="18m">18m</option>
+          <option value="30m">30m</option>
+          <option value="50m">50m</option>
+          <option value="70m">70m</option>
+          <option value="90m">90m</option>
+        </select>
+      </label>
+      <label>
+        <span>期間</span>
+        <select id="analysisPeriod">
+          <option value="5">直近5回</option>
+          <option value="20" selected>直近20回</option>
+          <option value="50">直近50回</option>
+          <option value="all">全期間</option>
+          <option value="custom" id="analysisCustomOption">期間指定</option>
+        </select>
+      </label>
+    </div>
+    </div>
+
+    <div id="analysisDateModal" class="analysis-date-modal" style="display:none">
+      <div class="analysis-date-dialog">
+        <div class="analysis-date-dialog-head">
+          <strong>期間指定</strong>
+          <button id="analysisDateClose" class="analysis-date-close" type="button">×</button>
+        </div>
+        <label>
+          <span>開始日</span>
+          <input type="date" id="analysisDateFrom">
+        </label>
+        <label>
+          <span>終了日</span>
+          <input type="date" id="analysisDateTo">
+        </label>
+        <div class="analysis-date-actions">
+          <button id="analysisDateCancel" class="secondary" type="button">キャンセル</button>
+          <button id="analysisDateApply" type="button">適用</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="analysis-primary-tabs">
+      <button data-analysis-view="score">スコア</button>
+      <button class="active" data-analysis-view="impact">着弾</button>
+      <button data-analysis-view="end">特徴</button>
+    </div>
+
+    <div class="analysis-workspace">
+      <div id="analysisScoreView" class="analysis-view">
+        <div class="analysis-view-head">
+          <strong>スコア推移</strong>
+          <span id="analysisScorePeriodLabel">—</span>
+        </div>
+        <canvas id="analysisScoreChart" width="900" height="390"></canvas>
+      </div>
+
+      <div id="analysisImpactView" class="analysis-view active">
+        <div class="analysis-tabs">
+          <button class="active" data-analysis-tab="grouping">中心</button>
+          <button data-analysis-tab="all">着弾</button>
+          <button data-analysis-tab="heatmap">ヒート</button>
+          <button data-analysis-tab="miss">ミス</button>
+        </div>
+
+        <div id="analysisInclusionControl" class="analysis-inclusion">
+          <span class="analysis-inclusion-label">包含率</span>
+          <span class="analysis-range-edge">50</span>
+          <input id="analysisInclusionSlider" type="range" min="50" max="100" step="1" value="50">
+          <span class="analysis-range-edge">100</span>
+          <strong id="analysisInclusionValue">50%</strong>
+        </div>
+
+        <div class="analysis-target-wrap">
+          <canvas id="analysisTarget" width="900" height="900"></canvas>
+        </div>
+        <div class="analysis-target-metrics">
+          <div><span>グルーピング半径</span><strong id="analysisGroupingRadius">—</strong></div>
+          <div><span>着弾平均</span><strong id="analysisMeanDistance">—</strong></div>
+        </div>
+      </div>
+
+      <div id="analysisEndView" class="analysis-view">
+        <div class="analysis-feature-head">
+          <div>
+            <span class="analysis-feature-kicker">YOUR PATTERN</span>
+            <strong id="analysisFeatureHeadline">特徴を分析中</strong>
+          </div>
+          <span id="analysisFeatureConfidence">—</span>
+        </div>
+
+        <div class="analysis-feature-tabs">
+          <button class="active" data-feature-tab="score">スコア</button>
+          <button data-feature-tab="grouping">まとまり</button>
+          <button data-feature-tab="position">位置</button>
+          <button data-feature-tab="miss">ミス</button>
+        </div>
+
+        <div class="analysis-feature-chart">
+          <canvas id="analysisEndChart" width="900" height="330"></canvas>
+        </div>
+
+        <div class="analysis-feature-summary">
+          <div>
+            <span>前半</span>
+            <strong id="analysisFeatureFirst">—</strong>
+          </div>
+          <div class="analysis-feature-arrow">→</div>
+          <div>
+            <span>後半</span>
+            <strong id="analysisFeatureLast">—</strong>
+          </div>
+          <div class="analysis-feature-delta">
+            <span>変化</span>
+            <strong id="analysisFeatureDelta">—</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section id="settingsScreen" class="screen">
     <div class="topbar">
       <button class="back" data-go="home">← ホーム</button>
       <div class="topbar-title"><strong>設定</strong><div class="muted">データ管理</div></div>
@@ -781,6 +1631,7 @@ const screens = {
   recordDay: document.getElementById('recordDayScreen'),
   detail: document.getElementById('recordDetailScreen'),
   impact: document.getElementById('impactScreen'),
+  analysis: document.getElementById('analysisScreen'),
   settings: document.getElementById('settingsScreen'),
   placeholder: document.getElementById('placeholderScreen')
 };
@@ -789,6 +1640,7 @@ function showScreen(name){
   screens[name].classList.add('active');
   if(name==='arrows') renderArrowCounts();
   if(name==='home') renderHomeDashboard();
+  if(name==='analysis') renderAnalysisPage();
   window.scrollTo(0,0);
   if(name==='records') renderRecordDates();
 }
@@ -1031,6 +1883,7 @@ function renderHomeDashboard(){
   const perArrowEl=document.getElementById('homePerArrow');
   const missEl=document.getElementById('homeMissRate');
   const groupingEl=document.getElementById('homeGroupingRadius');
+  const meanDistanceEl=document.getElementById('homeMeanDistance');
 
   if(records.length){
     const totals=records.map(r=>Number(r.total));
@@ -1044,9 +1897,12 @@ function renderHomeDashboard(){
     });
     const recent=sorted.slice(0,5).map(r=>Number(r.total));
     const recentAvg=recent.reduce((a,b)=>a+b,0)/recent.length;
+    const recent20=sorted.slice(0,20);
+    const recent20Totals=recent20.map(r=>Number(r.total));
+    const recent20Avg=recent20Totals.reduce((a,b)=>a+b,0)/recent20Totals.length;
 
     let arrows=0, tens=0, xs=0, scoreSum=0;
-    records.forEach(r=>{
+    recent20.forEach(r=>{
       (r.ends||[]).forEach(e=>{
         const shots=e.shotData||[];
         if(shots.length){
@@ -1070,7 +1926,7 @@ function renderHomeDashboard(){
 
     const fmt=n=>Number.isInteger(n)?String(n):n.toFixed(1);
     bestEl.textContent=best;
-    avgEl.textContent=fmt(avg);
+    avgEl.textContent=fmt(recent20Avg);
     recentEl.textContent=fmt(recentAvg);
     tenEl.textContent=arrows ? (tens/arrows*100).toFixed(1)+'%' : '—';
     xEl.textContent=arrows ? (xs/arrows*100).toFixed(1)+'%' : '—';
@@ -1081,7 +1937,7 @@ function renderHomeDashboard(){
     // the selected distance's per-arrow average.
     let missShots=0;
     if(shotAverage!==null){
-      records.forEach(r=>{
+      recent20.forEach(r=>{
         (r.ends||[]).forEach(e=>{
           const shots=e.shotData||[];
           if(shots.length){
@@ -1099,19 +1955,26 @@ function renderHomeDashboard(){
     }
     missEl.textContent=arrows ? (missShots/arrows*100).toFixed(1)+'%' : '—';
 
-    const groupingRecords=sorted
+    const groupingRecords=recent20
       .filter(r=>(r.mode||'grouping')!=='score')
-      .map(r=>({rec:r,radius:groupingRadiusCm(r)}))
-      .filter(x=>x.radius!==null)
-      .slice(0,5);
-    if(groupingRecords.length){
-      const groupingAvg=groupingRecords.reduce((sum,x)=>sum+x.radius,0)/groupingRecords.length;
-      groupingEl.textContent=`${groupingAvg.toFixed(1)} cm`;
-    }else{
-      groupingEl.textContent='—';
-    }
+      .map(r=>({
+        rec:r,
+        radius:groupingRadiusCm(r),
+        meanDistance:groupingMeanDistanceCm(r)
+      }))
+      .filter(x=>x.radius!==null || x.meanDistance!==null);
+
+    const radiusValues=groupingRecords.map(x=>x.radius).filter(v=>v!==null);
+    groupingEl.textContent=radiusValues.length
+      ? `${(radiusValues.reduce((a,b)=>a+b,0)/radiusValues.length).toFixed(1)} cm`
+      : '—';
+
+    const meanValues=groupingRecords.map(x=>x.meanDistance).filter(v=>v!==null);
+    meanDistanceEl.textContent=meanValues.length
+      ? `${(meanValues.reduce((a,b)=>a+b,0)/meanValues.length).toFixed(1)} cm`
+      : '—';
   }else{
-    [bestEl,avgEl,recentEl,tenEl,xEl,perArrowEl,missEl,groupingEl].forEach(el=>el.textContent='—');
+    [bestEl,avgEl,recentEl,tenEl,xEl,perArrowEl,missEl,groupingEl,meanDistanceEl].forEach(el=>el.textContent='—');
   }
 }
 
@@ -1436,7 +2299,46 @@ function groupingRadiusCm(rec){
   const shots=[];
   orderedEnds(rec.ends||[]).forEach(end=>{
     (end.shotData||[]).forEach(sh=>{
-      if(Number.isFinite(Number(sh.x)) && Number.isFinite(Number(sh.y))){
+      if(
+        Number.isFinite(Number(sh.x)) &&
+        Number.isFinite(Number(sh.y)) &&
+        Number(sh.x)>0 &&
+        Number(sh.y)>0 &&
+        Number(sh.x)<=900 &&
+        Number(sh.y)<=900
+      ){
+        shots.push({x:Number(sh.x),y:Number(sh.y)});
+      }
+    });
+  });
+  if(!shots.length) return null;
+
+  const cx=shots.reduce((sum,p)=>sum+p.x,0)/shots.length;
+  const cy=shots.reduce((sum,p)=>sum+p.y,0)/shots.length;
+  const distances=shots
+    .map(p=>Math.hypot(p.x-cx,p.y-cy))
+    .sort((a,b)=>a-b);
+
+  // Radius containing at least 90% of recorded arrows.
+  const index=Math.max(0,Math.ceil(distances.length*0.90)-1);
+  const radius90Px=distances[index];
+
+  // The drawn scoring face has radius 410px, so its full diameter is 820px.
+  const diameter=targetDiameterCm(rec.distance);
+  return diameter ? radius90Px*(diameter/820) : null;
+}
+function groupingMeanDistanceCm(rec){
+  const shots=[];
+  orderedEnds(rec.ends||[]).forEach(end=>{
+    (end.shotData||[]).forEach(sh=>{
+      if(
+        Number.isFinite(Number(sh.x)) &&
+        Number.isFinite(Number(sh.y)) &&
+        Number(sh.x)>0 &&
+        Number(sh.y)>0 &&
+        Number(sh.x)<=900 &&
+        Number(sh.y)<=900
+      ){
         shots.push({x:Number(sh.x),y:Number(sh.y)});
       }
     });
@@ -1447,10 +2349,10 @@ function groupingRadiusCm(rec){
   const cy=shots.reduce((sum,p)=>sum+p.y,0)/shots.length;
   const meanRadiusPx=shots.reduce((sum,p)=>sum+Math.hypot(p.x-cx,p.y-cy),0)/shots.length;
 
-  // The drawn scoring face has radius 410px, so its full diameter is 820px.
   const diameter=targetDiameterCm(rec.distance);
   return diameter ? meanRadiusPx*(diameter/820) : null;
 }
+
 
 function drawImpactTarget(rec){
   const c=450, maxR=410;
@@ -1466,7 +2368,9 @@ function drawImpactTarget(rec){
   ends.forEach((end,endIndex)=>{
     const color=endColors[endIndex % endColors.length];
     (end.shotData||[]).forEach(sh=>{
-      impactCtx.beginPath(); impactCtx.arc(sh.x,sh.y,11,0,Math.PI*2); impactCtx.fillStyle=color; impactCtx.fill();
+      const x=Number(sh.x), y=Number(sh.y);
+      if(!(Number.isFinite(x) && Number.isFinite(y) && x>0 && y>0 && x<=900 && y<=900)) return;
+      impactCtx.beginPath(); impactCtx.arc(x,y,11,0,Math.PI*2); impactCtx.fillStyle=color; impactCtx.fill();
       impactCtx.lineWidth=3; impactCtx.strokeStyle='#fff'; impactCtx.stroke();
     });
   });
@@ -1483,7 +2387,9 @@ function openImpactView(id){
   document.getElementById('impactName').textContent=rec.name;
   document.getElementById('impactMeta').textContent=`${rec.recordDate} ・ ${rec.distance}`;
   const radius=groupingRadiusCm(rec);
+  const meanDistance=groupingMeanDistanceCm(rec);
   document.getElementById('groupingRadius').textContent=radius===null ? '—' : `${radius.toFixed(1)} cm`;
+  document.getElementById('groupingMeanDistance').textContent=meanDistance===null ? '—' : `${meanDistance.toFixed(1)} cm`;
   drawImpactTarget(rec);
   showScreen('impact');
 }
@@ -1493,10 +2399,14 @@ document.getElementById('impactBack').onclick=()=>{ if(currentDetailRecordId) op
 function render(){
   state.mode=state.mode||'grouping';
   const isScoreOnly=state.mode==='score';
+  const scoreScreen=document.getElementById('scoreScreen');
+  scoreScreen.classList.toggle('score-only-mode',isScoreOnly);
   const targetWrap=document.querySelector('#scoreScreen .target-wrap');
   const keypad=document.getElementById('scoreKeypad');
+  const scoreOnlyTotals=document.getElementById('scoreOnlyTotals');
   if(targetWrap) targetWrap.style.display=isScoreOnly?'none':'flex';
   if(keypad) keypad.style.display=isScoreOnly?'grid':'none';
+  if(scoreOnlyTotals) scoreOnlyTotals.style.display=isScoreOnly?'grid':'none';
   if(!isScoreOnly) drawTarget();
   const n=state.arrowsPerEnd;
   document.getElementById('scoreTitle').textContent=`${state.distance} ${isScoreOnly?'スコアのみ':'着弾位置込み'}`;
@@ -1522,6 +2432,8 @@ function render(){
   const liveXs=state.shots.filter(s=>s.isX).length;
   document.getElementById('endScore').textContent=liveEndScore;
   document.getElementById('totalScore').textContent=state.total+liveEndScore;
+  document.getElementById('scoreOnlyEndScore').textContent=liveEndScore;
+  document.getElementById('scoreOnlyTotalScore').textContent=state.total+liveEndScore;
   document.getElementById('tens').textContent=state.tens+liveTens;
   document.getElementById('xs').textContent=state.xs+liveXs;
   const h=document.getElementById('history'); h.innerHTML='';
@@ -1532,6 +2444,596 @@ function render(){
     h.appendChild(d);
   }
 }
+
+let analysisDistanceValue='70m';
+let analysisPeriodValue='20';
+let analysisTabValue='grouping';
+let analysisViewValue='impact';
+let analysisInclusionRate=50;
+let analysisFeatureTab='score';
+
+function analysisRecordDate(rec){
+  return rec.recordDate || (rec.recordedAt ? String(rec.recordedAt).slice(0,10) : '');
+}
+function analysisFilteredRecords(){
+  let records=getRecords()
+    .filter(r=>r.distance===analysisDistanceValue)
+    .sort((a,b)=>(a.recordedAt||a.recordDate||'').localeCompare(b.recordedAt||b.recordDate||''));
+
+  if(analysisPeriodValue==='custom'){
+    const from=document.getElementById('analysisDateFrom').value;
+    const to=document.getElementById('analysisDateTo').value;
+    if(from) records=records.filter(r=>analysisRecordDate(r)>=from);
+    if(to) records=records.filter(r=>analysisRecordDate(r)<=to);
+    return records;
+  }
+  if(analysisPeriodValue==='all') return records;
+  const n=Number(analysisPeriodValue)||20;
+  return records.slice(-n);
+}
+function analysisShots(rec){
+  const shots=[];
+  orderedEnds(rec.ends||[]).forEach(end=>{
+    (end.shotData||[]).forEach(sh=>{
+      if(
+        Number.isFinite(Number(sh.x)) &&
+        Number.isFinite(Number(sh.y)) &&
+        Number(sh.x)>0 &&
+        Number(sh.y)>0 &&
+        Number(sh.x)<=900 &&
+        Number(sh.y)<=900
+      ){
+        shots.push({x:Number(sh.x),y:Number(sh.y),score:Number(sh.score)||0});
+      }
+    });
+  });
+  return shots;
+}
+function drawAnalysisTargetBase(ctx){
+  const c=450,maxR=410;
+  ctx.clearRect(0,0,900,900);
+  for(let score=1;score<=10;score++){
+    const r=maxR*(11-score)/10;
+    ctx.beginPath();
+    ctx.arc(c,c,r,0,Math.PI*2);
+    ctx.fillStyle=ringColor(score);
+    ctx.fill();
+    ctx.lineWidth=2;
+    ctx.strokeStyle='#555';
+    ctx.stroke();
+  }
+}
+
+function analysisRobustCenter(shots){
+  if(!shots.length) return null;
+  const meanCenter=list=>({
+    x:list.reduce((a,p)=>a+p.x,0)/list.length,
+    y:list.reduce((a,p)=>a+p.y,0)/list.length
+  });
+
+  // First-pass center from all arrows.
+  const initial=meanCenter(shots);
+
+  // Remove the farthest 10% from that center, then recompute the center.
+  const kept=[...shots]
+    .map(p=>({p,d:Math.hypot(p.x-initial.x,p.y-initial.y)}))
+    .sort((a,b)=>a.d-b.d)
+    .slice(0,Math.max(1,Math.ceil(shots.length*0.90)))
+    .map(x=>x.p);
+
+  return meanCenter(kept);
+}
+
+
+function analysisInclusionStats(shots, rate){
+  if(!shots.length) return null;
+
+  const meanCenter=list=>({
+    x:list.reduce((a,p)=>a+p.x,0)/list.length,
+    y:list.reduce((a,p)=>a+p.y,0)/list.length
+  });
+
+  // First pass uses all arrows to establish a neutral reference center.
+  const initial=meanCenter(shots);
+
+  // Keep the closest N% of arrows to that reference center.
+  const keepCount=Math.max(1,Math.ceil(shots.length*(rate/100)));
+  const included=[...shots]
+    .map(p=>({p,d:Math.hypot(p.x-initial.x,p.y-initial.y)}))
+    .sort((a,b)=>a.d-b.d)
+    .slice(0,keepCount)
+    .map(x=>x.p);
+
+  // Recompute center from only the included arrows.
+  const center=meanCenter(included);
+
+  // Radius that contains the selected included set around that recomputed center.
+  const distances=included
+    .map(p=>Math.hypot(p.x-center.x,p.y-center.y))
+    .sort((a,b)=>a-b);
+
+  const radiusPx=distances.length ? distances[distances.length-1] : 0;
+
+  return {included,center,radiusPx};
+}
+
+function drawAnalysisTarget(records){
+  const canvas=document.getElementById('analysisTarget');
+  const ctx=canvas.getContext('2d');
+  drawAnalysisTargetBase(ctx);
+
+  const allShots=records.flatMap(analysisShots);
+  if(!allShots.length) return;
+
+  const inclusionStats=analysisInclusionStats(allShots,analysisInclusionRate);
+  const includedShots=inclusionStats ? inclusionStats.included : [];
+
+  if(analysisTabValue==='all'){
+    // Show every valid recorded impact from the selected period.
+    // Lower opacity makes dense areas naturally darker without hiding individual arrows.
+    const alpha=Math.max(0.16,Math.min(0.48,18/Math.max(18,includedShots.length)));
+    includedShots.forEach(sh=>{
+      ctx.beginPath();
+      ctx.arc(sh.x,sh.y,7,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${alpha})`;
+      ctx.fill();
+      ctx.strokeStyle=`rgba(20,24,30,${Math.min(.55,alpha+.18)})`;
+      ctx.lineWidth=1.5;
+      ctx.stroke();
+    });
+  } else if(analysisTabValue==='grouping'){
+    const stats=inclusionStats;
+    const cx=stats.center.x, cy=stats.center.y;
+
+    // Faintly show included arrows so the user can see what the selected rate means.
+    stats.included.forEach(sh=>{
+      ctx.beginPath();
+      ctx.arc(sh.x,sh.y,5,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,.28)';
+      ctx.fill();
+    });
+
+    // Inclusion circle.
+    ctx.beginPath();
+    ctx.arc(cx,cy,stats.radiusPx,0,Math.PI*2);
+    ctx.strokeStyle='rgba(154,185,255,.88)';
+    ctx.lineWidth=5;
+    ctx.setLineDash([12,10]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Recomputed center marker.
+    ctx.beginPath();
+    ctx.arc(cx,cy,18,0,Math.PI*2);
+    ctx.fillStyle='rgba(0,224,184,.24)';
+    ctx.fill();
+    ctx.strokeStyle='#00e0b8';
+    ctx.lineWidth=5;
+    ctx.stroke();
+
+    ctx.strokeStyle='#00e0b8'; ctx.lineWidth=5;
+    ctx.beginPath(); ctx.moveTo(cx-25,cy); ctx.lineTo(cx+25,cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx,cy-25); ctx.lineTo(cx,cy+25); ctx.stroke();
+  } else if(analysisTabValue==='heatmap'){
+    // Dim the target so density stands out.
+    ctx.fillStyle='rgba(0,0,0,.42)';
+    ctx.fillRect(0,0,900,900);
+
+    // 2-D density grid. Each cell counts nearby arrows with a Gaussian weight.
+    const step=30;
+    const sigma=42;
+    const cells=[];
+    let maxDensity=0;
+    for(let gy=30;gy<=870;gy+=step){
+      for(let gx=30;gx<=870;gx+=step){
+        let density=0;
+        includedShots.forEach(sh=>{
+          const dx=gx-sh.x, dy=gy-sh.y;
+          density += Math.exp(-(dx*dx+dy*dy)/(2*sigma*sigma));
+        });
+        cells.push({x:gx,y:gy,d:density});
+        if(density>maxDensity) maxDensity=density;
+      }
+    }
+
+    cells.forEach(cell=>{
+      const t=maxDensity ? cell.d/maxDensity : 0;
+      if(t<0.10) return;
+
+      let fill;
+      if(t>0.72) fill=`rgba(255,70,45,${0.25+0.65*t})`;
+      else if(t>0.40) fill=`rgba(255,190,35,${0.18+0.55*t})`;
+      else fill=`rgba(80,160,255,${0.10+0.40*t})`;
+
+      ctx.fillStyle=fill;
+      ctx.beginPath();
+      ctx.arc(cell.x,cell.y,step*.68,0,Math.PI*2);
+      ctx.fill();
+    });
+
+    // Keep individual hit positions faintly visible.
+    includedShots.forEach(sh=>{
+      ctx.beginPath();
+      ctx.arc(sh.x,sh.y,3.5,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,.32)';
+      ctx.fill();
+    });
+  } else {
+    const scoreValues=allShots.map(x=>x.score);
+    const avgScore=scoreValues.reduce((a,b)=>a+b,0)/scoreValues.length;
+    const misses=allShots.filter(sh=>sh.score<=avgScore-2);
+    misses.forEach(sh=>{
+      ctx.beginPath(); ctx.arc(sh.x,sh.y,11,0,Math.PI*2);
+      ctx.fillStyle='#ff3b30'; ctx.fill();
+      ctx.strokeStyle='#fff'; ctx.lineWidth=3; ctx.stroke();
+    });
+  }
+}
+function drawAnalysisLineChart(records){
+  const c=document.getElementById('analysisScoreChart'),ctx=c.getContext('2d');
+  const w=c.width,h=c.height;
+  const left=78,right=24,top=34,bottom=72;
+
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle='#171b22';
+  ctx.fillRect(0,0,w,h);
+
+  if(!records.length){
+    ctx.fillStyle='#8d96a5';
+    ctx.font='28px sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('記録なし',w/2,h/2);
+    return;
+  }
+
+  const vals=records.map(r=>Number(r.total)||0);
+  let min=Math.min(...vals),max=Math.max(...vals);
+  const spread=Math.max(10,max-min);
+  min=Math.max(0,Math.floor((min-spread*.15)/10)*10);
+  max=Math.ceil((max+spread*.15)/10)*10;
+  if(max<=min) max=min+10;
+
+  const plotW=w-left-right;
+  const plotH=h-top-bottom;
+  const x=i=>left+plotW*(records.length===1?.5:i/(records.length-1));
+  const y=v=>top+plotH*(1-(v-min)/(max-min));
+
+  // Y grid + score labels
+  ctx.font='20px sans-serif';
+  ctx.textBaseline='middle';
+  for(let i=0;i<=4;i++){
+    const value=max-(max-min)*i/4;
+    const yy=top+plotH*i/4;
+    ctx.strokeStyle='rgba(255,255,255,.09)';
+    ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(left,yy);ctx.lineTo(w-right,yy);ctx.stroke();
+    ctx.fillStyle='#8e98a8';
+    ctx.textAlign='right';
+    ctx.fillText(Math.round(value),left-12,yy);
+  }
+
+  // Axis titles
+  ctx.fillStyle='#9da6b4';
+  ctx.font='18px sans-serif';
+  ctx.textAlign='left';
+  ctx.textBaseline='top';
+  ctx.fillText('SCORE',12,8);
+
+  const shortDate=r=>{
+    const d=analysisRecordDate(r);
+    if(!d) return '';
+    const parts=d.split('-');
+    return parts.length===3 ? `${Number(parts[1])}/${Number(parts[2])}` : d;
+  };
+
+  // X date labels: first, middle, last (or all when few points)
+  const labelIndexes=[];
+  if(records.length<=5){
+    for(let i=0;i<records.length;i++) labelIndexes.push(i);
+  }else{
+    labelIndexes.push(0,Math.floor((records.length-1)/2),records.length-1);
+  }
+  ctx.font='18px sans-serif';
+  ctx.fillStyle='#8e98a8';
+  ctx.textAlign='center';
+  ctx.textBaseline='top';
+  [...new Set(labelIndexes)].forEach(i=>{
+    ctx.fillText(shortDate(records[i]),x(i),h-bottom+16);
+  });
+
+  // Line
+  ctx.strokeStyle='#9ab9ff';
+  ctx.lineWidth=5;
+  ctx.lineJoin='round';
+  ctx.lineCap='round';
+  ctx.beginPath();
+  vals.forEach((v,i)=>i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(i),y(v)));
+  ctx.stroke();
+
+  vals.forEach((v,i)=>{
+    ctx.beginPath();
+    ctx.arc(x(i),y(v),6,0,Math.PI*2);
+    ctx.fillStyle='#e4ebff';
+    ctx.fill();
+  });
+
+  // Selected period note
+  let periodLabel='';
+  if(analysisPeriodValue==='all') periodLabel='全期間';
+  else if(analysisPeriodValue==='custom'){
+    const from=document.getElementById('analysisDateFrom').value||'';
+    const to=document.getElementById('analysisDateTo').value||'';
+    periodLabel=(from||to) ? `${from||'開始'} ～ ${to||'終了'}` : '期間指定';
+  }else{
+    periodLabel=`直近${analysisPeriodValue}回`;
+  }
+  ctx.fillStyle='#7f8999';
+  ctx.font='18px sans-serif';
+  ctx.textAlign='right';
+  ctx.textBaseline='top';
+  ctx.fillText(periodLabel,w-right,8);
+}
+function drawAnalysisEndChart(records){
+  const c=document.getElementById('analysisEndChart'),ctx=c.getContext('2d');
+  const w=c.width,h=c.height;
+  const left=78,right=24,top=34,bottom=64;
+
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle='#171b22';ctx.fillRect(0,0,w,h);
+  if(!records.length) return;
+
+  const maxEnds=Math.max(...records.map(r=>(r.ends||[]).length),0);
+  const avgs=[];
+  for(let endNo=1;endNo<=maxEnds;endNo++){
+    const vals=[];
+    records.forEach(r=>{
+      const e=(r.ends||[]).find(x=>Number(x.end)===endNo);
+      if(e) vals.push(Number(e.score)||0);
+    });
+    avgs.push(vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null);
+  }
+  const valid=avgs.filter(v=>v!==null);
+  if(!valid.length) return;
+
+  const arrowCount=analysisDistanceValue==='18m'?3:6;
+  const theoreticalMax=arrowCount*10;
+  const yMax=Math.ceil(theoreticalMax/10)*10;
+  const plotW=w-left-right, plotH=h-top-bottom;
+
+  // Y grid
+  ctx.font='20px sans-serif';
+  ctx.textBaseline='middle';
+  for(let i=0;i<=3;i++){
+    const value=yMax-yMax*i/3;
+    const yy=top+plotH*i/3;
+    ctx.strokeStyle='rgba(255,255,255,.09)';
+    ctx.beginPath();ctx.moveTo(left,yy);ctx.lineTo(w-right,yy);ctx.stroke();
+    ctx.fillStyle='#8e98a8';
+    ctx.textAlign='right';
+    ctx.fillText(Math.round(value),left-12,yy);
+  }
+  ctx.fillStyle='#9da6b4';
+  ctx.font='18px sans-serif';
+  ctx.textAlign='left';
+  ctx.textBaseline='top';
+  ctx.fillText('END SCORE',12,8);
+
+  const barSpace=plotW/avgs.length;
+  avgs.forEach((v,i)=>{
+    if(v===null) return;
+    const bh=plotH*(v/yMax);
+    const bx=left+i*barSpace+barSpace*.17;
+    const bw=barSpace*.66;
+    ctx.fillStyle='#687a9a';
+    ctx.fillRect(bx,top+plotH-bh,bw,bh);
+
+    ctx.fillStyle='#aeb7c6';
+    ctx.font='18px sans-serif';
+    ctx.textAlign='center';
+    ctx.textBaseline='top';
+    ctx.fillText(`E${i+1}`,bx+bw/2,h-bottom+14);
+  });
+}
+function updateAnalysisMetrics(records){
+  const groupingRecords=records.filter(r=>(r.mode||'grouping')!=='score');
+  const allShots=groupingRecords.flatMap(analysisShots);
+  const diameter=targetDiameterCm(analysisDistanceValue);
+
+  if(!allShots.length || !diameter){
+    document.getElementById('analysisGroupingRadius').textContent='—';
+    document.getElementById('analysisMeanDistance').textContent='—';
+    return;
+  }
+
+  const stats=analysisInclusionStats(allShots,analysisInclusionRate);
+  const radiusCm=stats.radiusPx*(diameter/820);
+
+  const meanDistancePx=stats.included.reduce(
+    (sum,p)=>sum+Math.hypot(p.x-stats.center.x,p.y-stats.center.y),0
+  )/stats.included.length;
+  const meanDistanceCm=meanDistancePx*(diameter/820);
+
+  document.getElementById('analysisGroupingRadius').textContent=`${radiusCm.toFixed(1)} cm`;
+  document.getElementById('analysisMeanDistance').textContent=`${meanDistanceCm.toFixed(1)} cm`;
+}
+function renderAnalysisPage(){
+  const dist=document.getElementById('analysisDistance');
+  const period=document.getElementById('analysisPeriod');
+  dist.value=analysisDistanceValue;
+  period.value=analysisPeriodValue;
+
+  dist.onchange=()=>{analysisDistanceValue=dist.value;renderAnalysisPage();};
+  const dateModal=document.getElementById('analysisDateModal');
+  const dateFrom=document.getElementById('analysisDateFrom');
+  const dateTo=document.getElementById('analysisDateTo');
+  const customOption=document.getElementById('analysisCustomOption');
+
+  const updateCustomLabel=()=>{
+    if(dateFrom.value || dateTo.value){
+      const shortDate=v=>{
+        if(!v) return '…';
+        const p=v.split('-');
+        return p.length===3 ? `${Number(p[1])}/${Number(p[2])}` : v;
+      };
+      customOption.textContent=`${shortDate(dateFrom.value)}〜${shortDate(dateTo.value)}`;
+    }else{
+      customOption.textContent='期間指定';
+    }
+  };
+  updateCustomLabel();
+
+  period.onchange=()=>{
+    if(period.value==='custom'){
+      dateModal.style.display='flex';
+      period.value=analysisPeriodValue;
+      return;
+    }
+    analysisPeriodValue=period.value;
+    renderAnalysisPage();
+  };
+
+  const closeDateModal=()=>{ dateModal.style.display='none'; };
+  document.getElementById('analysisDateClose').onclick=closeDateModal;
+  document.getElementById('analysisDateCancel').onclick=closeDateModal;
+  document.getElementById('analysisDateApply').onclick=()=>{
+    analysisPeriodValue='custom';
+    updateCustomLabel();
+    closeDateModal();
+    renderAnalysisPage();
+  };
+
+  document.querySelectorAll('[data-analysis-view]').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.analysisView===analysisViewValue);
+    btn.onclick=()=>{
+      analysisViewValue=btn.dataset.analysisView;
+      renderAnalysisPage();
+    };
+  });
+  document.getElementById('analysisScoreView').classList.toggle('active',analysisViewValue==='score');
+  document.getElementById('analysisImpactView').classList.toggle('active',analysisViewValue==='impact');
+  document.getElementById('analysisEndView').classList.toggle('active',analysisViewValue==='end');
+
+  const inclusionControl=document.getElementById('analysisInclusionControl');
+  const inclusionSlider=document.getElementById('analysisInclusionSlider');
+  const inclusionValue=document.getElementById('analysisInclusionValue');
+  const inclusionDisabled=analysisTabValue==='miss';
+  inclusionControl.classList.toggle('is-disabled',inclusionDisabled);
+  inclusionSlider.disabled=inclusionDisabled;
+  inclusionSlider.value=analysisInclusionRate;
+  inclusionValue.textContent=inclusionDisabled ? '—' : `${analysisInclusionRate}%`;
+  inclusionSlider.oninput=()=>{
+    analysisInclusionRate=Number(inclusionSlider.value);
+    inclusionValue.textContent=`${analysisInclusionRate}%`;
+    const records=analysisFilteredRecords();
+    drawAnalysisTarget(records);
+    updateAnalysisMetrics(records);
+  };
+
+  document.querySelectorAll('[data-analysis-tab]').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.analysisTab===analysisTabValue);
+    btn.onclick=()=>{analysisTabValue=btn.dataset.analysisTab;renderAnalysisPage();};
+  });
+
+  document.querySelectorAll('[data-feature-tab]').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.featureTab===analysisFeatureTab);
+    btn.onclick=()=>{
+      analysisFeatureTab=btn.dataset.featureTab;
+      renderAnalysisPage();
+    };
+  });
+
+  const records=analysisFilteredRecords();
+
+  // First prototype: score trend is live; other tabs reserve the same compact
+  // workspace for grouping / position / miss logic in the next iteration.
+  const featureHeadline=document.getElementById('analysisFeatureHeadline');
+  const featureConfidence=document.getElementById('analysisFeatureConfidence');
+  const featureFirst=document.getElementById('analysisFeatureFirst');
+  const featureLast=document.getElementById('analysisFeatureLast');
+  const featureDelta=document.getElementById('analysisFeatureDelta');
+
+  if(analysisFeatureTab==='score'){
+    const endBuckets=[];
+    records.forEach(r=>{
+      const ends=r.ends||[];
+      ends.forEach((e,i)=>{
+        const vals=(e.arrows||[]).map(a=>Number(a.score)).filter(Number.isFinite);
+        if(!vals.length) return;
+        if(!endBuckets[i]) endBuckets[i]=[];
+        endBuckets[i].push(vals.reduce((a,b)=>a+b,0));
+      });
+    });
+    const endAvgs=endBuckets.map(v=>v&&v.length?v.reduce((a,b)=>a+b,0)/v.length:null);
+    const valid=endAvgs.filter(v=>v!==null);
+    if(valid.length>=2){
+      const split=Math.ceil(valid.length/2);
+      const first=valid.slice(0,split).reduce((a,b)=>a+b,0)/valid.slice(0,split).length;
+      const last=valid.slice(split).reduce((a,b)=>a+b,0)/Math.max(1,valid.slice(split).length);
+      const delta=last-first;
+      featureFirst.textContent=first.toFixed(1);
+      featureLast.textContent=last.toFixed(1);
+      featureDelta.textContent=(delta>=0?'+':'')+delta.toFixed(1)+' pt';
+      featureHeadline.textContent=Math.abs(delta)<0.8?'エンド間の差は小さい':delta<0?'後半にスコア低下':'後半にスコア上昇';
+      featureConfidence.textContent=`${records.length}回から分析`;
+    }else{
+      featureHeadline.textContent='データを蓄積すると特徴を表示';
+      featureConfidence.textContent='—';
+      featureFirst.textContent=featureLast.textContent=featureDelta.textContent='—';
+    }
+  }else{
+    const labels={
+      grouping:'エンドごとのまとまりを比較',
+      position:'着弾位置の変化を分析',
+      miss:'ミスの発生傾向を分析'
+    };
+    featureHeadline.textContent=labels[analysisFeatureTab]||'特徴';
+    featureConfidence.textContent='PROTOTYPE';
+    featureFirst.textContent=featureLast.textContent=featureDelta.textContent='—';
+  }
+
+  const periodText=analysisPeriodValue==='all'
+    ? '全期間'
+    : analysisPeriodValue==='custom'
+      ? (document.getElementById('analysisCustomOption').textContent || 'CUSTOM')
+      : `直近${analysisPeriodValue}回`;
+  document.getElementById('analysisScorePeriodLabel').textContent=periodText;
+  drawAnalysisLineChart(records);
+  drawAnalysisTarget(records);
+  drawAnalysisEndChart(records);
+  updateAnalysisMetrics(records);
+}
+
+
+(function(){
+  const workspace=document.querySelector('.analysis-workspace');
+  if(!workspace) return;
+  let sx=0,sy=0;
+  let swipeBlocked=false;
+  workspace.addEventListener('touchstart',e=>{
+    if(!e.touches.length) return;
+    swipeBlocked=Boolean(e.target.closest && e.target.closest('#analysisInclusionSlider'));
+    sx=e.touches[0].clientX; sy=e.touches[0].clientY;
+  },{passive:true});
+  workspace.addEventListener('touchend',e=>{
+    if(!e.changedTouches.length) return;
+    if(swipeBlocked){
+      swipeBlocked=false;
+      return;
+    }
+    const dx=e.changedTouches[0].clientX-sx;
+    const dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)<55 || Math.abs(dx)<Math.abs(dy)*1.25) return;
+    const views=['score','impact','end'];
+    let i=views.indexOf(analysisViewValue);
+    if(dx<0 && i<views.length-1) i++;
+    if(dx>0 && i>0) i--;
+    if(views[i]!==analysisViewValue){
+      analysisViewValue=views[i];
+      renderAnalysisPage();
+    }
+  },{passive:true});
+})();
+
 render();
 renderHomeDashboard();
 

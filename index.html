@@ -1174,6 +1174,343 @@
       border-left:1px solid rgba(255,255,255,.07);
     }
 
+
+    #analysisInclusionSlider {
+      -webkit-appearance:none;
+      appearance:none;
+      height:32px;
+      background:transparent;
+      touch-action:none;
+      cursor:pointer;
+    }
+    #analysisInclusionSlider::-webkit-slider-runnable-track {
+      height:4px;
+      border-radius:999px;
+      background:#4a5361;
+    }
+    #analysisInclusionSlider::-webkit-slider-thumb {
+      -webkit-appearance:none;
+      appearance:none;
+      width:24px;
+      height:24px;
+      margin-top:-10px;
+      border-radius:50%;
+      background:#dbe6ff;
+      border:3px solid #7fa8ff;
+      box-shadow:0 2px 8px rgba(0,0,0,.35);
+    }
+    #analysisInclusionSlider::-moz-range-track {
+      height:4px;
+      border-radius:999px;
+      background:#4a5361;
+    }
+    #analysisInclusionSlider::-moz-range-thumb {
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:#dbe6ff;
+      border:3px solid #7fa8ff;
+      box-shadow:0 2px 8px rgba(0,0,0,.35);
+    }
+
+
+    /* v77 — score-only mode rebuilt for fast score entry */
+    #scoreScreen.score-only-mode .topbar { margin-top:4px; min-height:36px; }
+    #scoreScreen.score-only-mode .topbar-title .muted { display:none; }
+    #scoreScreen.score-only-mode .card:first-of-type {
+      margin-top:6px; padding:10px; border-radius:14px; box-shadow:none;
+    }
+    #scoreScreen.score-only-mode .scoreonly-head {
+      display:flex; align-items:center; justify-content:space-between;
+      min-height:28px; margin-bottom:3px;
+    }
+    #scoreScreen.score-only-mode .scoreonly-head #endLabel { font-size:15px; }
+    #scoreScreen.score-only-mode .scoreonly-head #shotCount {
+      padding:2px 7px; font-size:10px; background:#252b35;
+    }
+
+    #scoreScreen.score-only-mode .scoreonly-shot-numbers {
+      display:grid; grid-template-columns:repeat(6,1fr); gap:5px;
+      margin:4px 0 2px; color:#687384; font-size:8px;
+      font-weight:700; text-align:center;
+    }
+    #scoreScreen.score-only-mode #shots {
+      display:grid; grid-template-columns:repeat(6,1fr) !important;
+      gap:5px !important; margin:0 0 7px !important;
+    }
+    #scoreScreen.score-only-mode #shots .shot {
+      height:42px !important; min-height:42px !important; padding:0 !important;
+      display:flex; align-items:center; justify-content:center;
+      border-radius:9px !important; font-size:18px !important; font-weight:900 !important;
+      background:#202630 !important; border:1px solid #333b47 !important; color:#eef2f8;
+    }
+
+    #scoreScreen.score-only-mode .score-only-totals {
+      display:grid !important; grid-template-columns:1fr 1fr !important;
+      gap:5px !important; margin:0 0 7px !important;
+    }
+    #scoreScreen.score-only-mode .score-only-totals > div {
+      padding:6px 4px !important; border-radius:10px !important;
+      background:#1a2028 !important; border:1px solid rgba(255,255,255,.055) !important;
+    }
+    #scoreScreen.score-only-mode .score-only-totals span { font-size:8px !important; letter-spacing:.12em !important; }
+    #scoreScreen.score-only-mode .score-only-totals strong { margin-top:1px !important; font-size:25px !important; }
+
+    #scoreScreen.score-only-mode .score-keypad {
+      display:grid !important; grid-template-columns:repeat(3,1fr) !important;
+      gap:4px !important; margin:0 !important;
+    }
+    #scoreScreen.score-only-mode .score-keypad button {
+      min-height:52px !important; padding:0 !important; border-radius:8px !important;
+      font-size:21px !important; font-weight:900 !important; line-height:1 !important;
+      box-shadow:none !important; border:1px solid rgba(0,0,0,.35) !important;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="X"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="10"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="9"] {
+      background:#f4d93f !important; color:#151515 !important;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="8"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="7"] {
+      background:#d9433f !important; color:#fff !important;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="6"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="5"] {
+      background:#3378c8 !important; color:#fff !important;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="4"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="3"] {
+      background:#14171c !important; color:#fff !important; border-color:#4a515c !important;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="2"],
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="1"] {
+      background:#f2f2ef !important; color:#15171b !important;
+    }
+    #scoreScreen.score-only-mode .score-keypad button[data-score-value="0"] {
+      background:#717985 !important; color:#fff !important;
+    }
+
+    #scoreScreen.score-only-mode .row {
+      display:grid !important; grid-template-columns:72px 1fr !important;
+      gap:5px !important; margin-top:6px !important;
+    }
+    #scoreScreen.score-only-mode #prevEnd { display:none !important; }
+    #scoreScreen.score-only-mode #undo,
+    #scoreScreen.score-only-mode #finish {
+      min-height:42px !important; padding:5px !important; border-radius:9px !important; font-size:13px !important;
+    }
+    #scoreScreen.score-only-mode #undo { background:#282f39 !important; color:#d3dae4 !important; }
+    #scoreScreen.score-only-mode #finish { background:#2b7cff !important; color:#fff !important; font-size:14px !important; }
+
+    #scoreScreen.score-only-mode > .card:last-of-type { display:none !important; }
+
+    #scoreScreen.score-only-mode.scoreonly-three .scoreonly-shot-numbers {
+      grid-template-columns:repeat(3,1fr);
+    }
+    #scoreScreen.score-only-mode.scoreonly-three .scoreonly-shot-numbers span:nth-child(n+4) { display:none; }
+    #scoreScreen.score-only-mode.scoreonly-three #shots { grid-template-columns:repeat(3,1fr) !important; }
+
+    @media (max-height:720px) {
+      #scoreScreen.score-only-mode .score-keypad button { min-height:46px !important; }
+      #scoreScreen.score-only-mode #shots .shot { height:38px !important; min-height:38px !important; }
+      #scoreScreen.score-only-mode .score-only-totals strong { font-size:22px !important; }
+    }
+
+
+    #scoreScreen.score-only-mode .scoreonly-paper-history {
+      display:block; max-height:104px; overflow-y:auto; overscroll-behavior:contain;
+      margin:1px 0 7px; border:1px solid #313844; border-radius:9px;
+      background:#f3f1e9; color:#16191d; scrollbar-width:thin;
+    }
+    #scoreScreen.score-only-mode .scoreonly-paper-history:empty { display:none; }
+    #scoreScreen.score-only-mode .paper-score-row {
+      display:grid; grid-template-columns:30px minmax(0,1fr) 38px;
+      min-height:31px; border-bottom:1px solid #b8b5ab; font-variant-numeric:tabular-nums;
+    }
+    #scoreScreen.score-only-mode .paper-score-row:last-child { border-bottom:0; }
+    #scoreScreen.score-only-mode .paper-score-end,
+    #scoreScreen.score-only-mode .paper-score-total {
+      display:flex; align-items:center; justify-content:center;
+      font-size:10px; font-weight:800; background:#dedbd1;
+    }
+    #scoreScreen.score-only-mode .paper-score-end { border-right:1px solid #aaa79e; }
+    #scoreScreen.score-only-mode .paper-score-total { border-left:1px solid #aaa79e; font-size:13px; }
+    #scoreScreen.score-only-mode .paper-score-arrows {
+      display:grid; grid-template-columns:repeat(6,1fr); min-width:0;
+    }
+    #scoreScreen.score-only-mode.scoreonly-three .paper-score-arrows { grid-template-columns:repeat(3,1fr); }
+    #scoreScreen.score-only-mode .paper-score-arrow {
+      display:flex; align-items:center; justify-content:center; min-width:0;
+      border-right:1px solid #cbc8be; font-size:12px; font-weight:800;
+    }
+    #scoreScreen.score-only-mode .paper-score-arrow:last-child { border-right:0; }
+    #scoreScreen.score-only-mode .paper-score-arrow.score-x,
+    #scoreScreen.score-only-mode .paper-score-arrow.score-10,
+    #scoreScreen.score-only-mode .paper-score-arrow.score-9 { background:#f1d94b; }
+    #scoreScreen.score-only-mode .paper-score-arrow.score-8,
+    #scoreScreen.score-only-mode .paper-score-arrow.score-7 { background:#df655f; }
+    #scoreScreen.score-only-mode .paper-score-arrow.score-6,
+    #scoreScreen.score-only-mode .paper-score-arrow.score-5 { background:#6593ca; }
+    #scoreScreen.score-only-mode .paper-score-arrow.score-4,
+    #scoreScreen.score-only-mode .paper-score-arrow.score-3 { background:#3b3d41; color:#fff; }
+    #scoreScreen.score-only-mode .paper-score-arrow.score-2,
+    #scoreScreen.score-only-mode .paper-score-arrow.score-1 { background:#f7f6f1; }
+    #scoreScreen.score-only-mode .paper-score-arrow.score-0 { background:#c9c8c3; color:#555; }
+    @media (max-height:720px) {
+      #scoreScreen.score-only-mode .scoreonly-paper-history { max-height:67px; margin-bottom:5px; }
+      #scoreScreen.score-only-mode .paper-score-row { min-height:29px; }
+    }
+
+
+    #scoreScreen.score-only-mode .scoreonly-shot-numbers,
+    #scoreScreen.score-only-mode #shots,
+    #scoreScreen.score-only-mode .score-only-totals {
+      display:none !important;
+    }
+
+    #scoreScreen.score-only-mode .scoreonly-paper-history {
+      max-height:154px !important;
+      margin:4px 0 7px !important;
+    }
+
+    #scoreScreen.score-only-mode .paper-score-row.current {
+      outline:2px solid #2b7cff;
+      outline-offset:-2px;
+      background:#fff;
+    }
+
+    #scoreScreen.score-only-mode .paper-score-row.current .paper-score-end,
+    #scoreScreen.score-only-mode .paper-score-row.current .paper-score-total {
+      background:#cfd9eb;
+    }
+
+    #scoreScreen.score-only-mode .paper-score-arrow.empty {
+      background:#faf9f4;
+      color:#aaa;
+    }
+
+    #scoreScreen.score-only-mode .paper-score-arrow.current-cell {
+      box-shadow:inset 0 0 0 2px #2b7cff;
+    }
+
+    #scoreScreen.score-only-mode .scoreonly-head {
+      margin-bottom:4px !important;
+    }
+
+    #scoreScreen.score-only-mode .scoreonly-head #shotCount {
+      background:transparent !important;
+      color:#8d97a7;
+      padding-right:0 !important;
+    }
+
+    @media (max-height:720px) {
+      #scoreScreen.score-only-mode .scoreonly-paper-history {
+        max-height:122px !important;
+      }
+    }
+
+
+    #scoreScreen.score-only-mode .scoreonly-head {
+      display:none !important;
+    }
+
+    #scoreScreen.score-only-mode .scoreonly-paper-history {
+      max-height:220px !important;
+      margin-top:2px !important;
+    }
+
+    @media (max-height:720px) {
+      #scoreScreen.score-only-mode .scoreonly-paper-history {
+        max-height:180px !important;
+      }
+    }
+
+
+    /* v81 — larger paper score typography with tighter arrow cells */
+    #scoreScreen.score-only-mode .paper-score-row {
+      grid-template-columns:40px minmax(0,1fr) 44px !important;
+      min-height:34px !important;
+    }
+
+    #scoreScreen.score-only-mode .paper-score-end {
+      font-size:13px !important;
+      font-weight:900 !important;
+    }
+
+    #scoreScreen.score-only-mode .paper-score-total {
+      font-size:16px !important;
+      font-weight:900 !important;
+    }
+
+    #scoreScreen.score-only-mode .paper-score-arrows {
+      gap:0 !important;
+    }
+
+    #scoreScreen.score-only-mode .paper-score-arrow {
+      font-size:15px !important;
+      font-weight:900 !important;
+      padding:0 1px !important;
+    }
+
+    #scoreScreen.score-only-mode.scoreonly-three .paper-score-arrow {
+      font-size:17px !important;
+    }
+
+    @media (max-width:390px) {
+      #scoreScreen.score-only-mode .paper-score-row {
+        grid-template-columns:36px minmax(0,1fr) 40px !important;
+      }
+      #scoreScreen.score-only-mode .paper-score-arrow {
+        font-size:14px !important;
+      }
+      #scoreScreen.score-only-mode .paper-score-end {
+        font-size:12px !important;
+      }
+      #scoreScreen.score-only-mode .paper-score-total {
+        font-size:15px !important;
+      }
+    }
+
+
+    #scoreScreen.score-only-mode .row {
+      grid-template-columns:74px 74px 1fr !important;
+    }
+    #scoreScreen.score-only-mode #prevEnd {
+      display:block !important;
+      min-height:42px !important;
+      padding:5px !important;
+      border-radius:9px !important;
+      font-size:12px !important;
+      background:#282f39 !important;
+      color:#d3dae4 !important;
+    }
+    #scoreScreen.score-only-mode #prevEnd::before {
+      content:none;
+    }
+
+    /* 18m: two 3-arrow ends per visual row */
+    #scoreScreen.score-only-mode.scoreonly-three .scoreonly-paper-history {
+      background:transparent !important;
+      border:0 !important;
+      border-radius:0 !important;
+      max-height:220px !important;
+      display:grid !important;
+      grid-template-columns:1fr 1fr;
+      gap:6px;
+      overflow-y:auto;
+    }
+    #scoreScreen.score-only-mode.scoreonly-three .paper-score-row {
+      grid-template-columns:34px minmax(0,1fr) 38px !important;
+      min-height:34px !important;
+      border:1px solid #b8b5ab !important;
+      border-radius:8px;
+      overflow:hidden;
+      background:#f3f1e9;
+    }
+    #scoreScreen.score-only-mode.scoreonly-three .paper-score-arrow {
+      font-size:16px !important;
+    }
+
 </style>
 </head>
 <body>
@@ -1309,13 +1646,14 @@
     </div>
 
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center"><strong id="endLabel">End 1</strong><span class="badge" id="shotCount">0 / 6</span></div>
+      <div class="scoreonly-head"><strong id="endLabel">End 1</strong><span class="badge" id="shotCount">0 / 6</span></div>
       <div id="scoreOnlyTotals" class="score-only-totals" style="display:none">
         <div><span>END</span><strong id="scoreOnlyEndScore">0</strong></div>
         <div><span>TOTAL</span><strong id="scoreOnlyTotalScore">0</strong></div>
       </div>
       <div class="target-wrap"><canvas id="target" width="900" height="900"></canvas></div>
       <div id="shots" class="shots"></div>
+      <div id="scoreOnlyPaperHistory" class="scoreonly-paper-history"></div>
       <div id="scoreKeypad" class="score-keypad" style="display:none">
         <button data-score-value="X">X</button>
         <button data-score-value="10">10</button>
@@ -1330,7 +1668,7 @@
         <button data-score-value="1">1</button>
         <button data-score-value="0">M</button>
       </div>
-      <div class="row"><button id="prevEnd" class="secondary compact-action" aria-label="前のエンド" title="前のエンド">←</button><button id="undo" class="secondary compact-action" aria-label="戻す" title="戻す"><span class="compact-label">戻す</span></button><button id="finish" class="compact-finish" aria-label="次エンドへ" title="次エンドへ"><span class="compact-label">次エンドへ</span></button></div>
+      <div class="row"><button id="prevEnd" class="secondary compact-action" aria-label="前のエンド" title="前のエンド">前エンド</button><button id="undo" class="secondary compact-action" aria-label="戻す" title="戻す"><span class="compact-label">戻す</span></button><button id="finish" class="compact-finish" aria-label="次エンドへ" title="次エンドへ"><span class="compact-label">次エンドへ</span></button></div>
     </div>
 
     <div class="card">
@@ -1533,7 +1871,7 @@
         <div id="analysisInclusionControl" class="analysis-inclusion">
           <span class="analysis-inclusion-label">包含率</span>
           <span class="analysis-range-edge">50</span>
-          <input id="analysisInclusionSlider" type="range" min="50" max="100" step="1" value="50">
+          <input id="analysisInclusionSlider" type="range" min="50" max="100" step="5" value="50">
           <span class="analysis-range-edge">100</span>
           <strong id="analysisInclusionValue">50%</strong>
         </div>
@@ -2014,6 +2352,77 @@ document.querySelectorAll('[data-distance]').forEach(btn=>btn.addEventListener('
 document.querySelectorAll('[data-score-mode]').forEach(btn=>btn.addEventListener('click',()=>startScoring(pendingDistance,btn.dataset.scoreMode)));
 
 function ringColor(score){ if(score>=9) return '#f3d33b'; if(score>=7) return '#e33b35'; if(score>=5) return '#3a7bd5'; if(score>=3) return '#111'; if(score>=1) return '#eee'; return '#cfd3da'; }
+
+function renderScoreOnlyPaperHistory(){
+  const box=document.getElementById('scoreOnlyPaperHistory');
+  if(!box) return;
+
+  const screen=document.getElementById('scoreScreen');
+  if(!screen || !screen.classList.contains('score-only-mode')){
+    box.innerHTML='';
+    return;
+  }
+
+  const arrowCount=state.arrowsPerEnd||6;
+  const maxEnds=state.maxEnds||6;
+  const historyMap=new Map((state.history||[]).map(item=>[Number(item.end),item]));
+
+  const scoreClass=v=>{
+    const t=String(v).toUpperCase();
+    if(t==='X') return 'score-x';
+    const n=Number(t);
+    return Number.isFinite(n)?`score-${n}`:'';
+  };
+
+  const rowHtml=(endNo, vals, total, isCurrent=false)=>{
+    const cells=[...vals].slice(0,arrowCount);
+    while(cells.length<arrowCount) cells.push('');
+
+    return `<div class="paper-score-row${isCurrent?' current':''}">
+      <div class="paper-score-end">E${endNo}</div>
+      <div class="paper-score-arrows">
+        ${cells.map((v,i)=>{
+          const currentCell=isCurrent && i===state.shots.length;
+          const cls=[
+            'paper-score-arrow',
+            scoreClass(v),
+            v===''?'empty':'',
+            currentCell?'current-cell':''
+          ].filter(Boolean).join(' ');
+          return `<div class="${cls}">${v===''?'':v}</div>`;
+        }).join('')}
+      </div>
+      <div class="paper-score-total">${total ?? ''}</div>
+    </div>`;
+  };
+
+  const rows=[];
+  for(let endNo=1; endNo<=maxEnds; endNo++){
+    if(endNo===state.end){
+      const vals=state.shots.map(sh=>sh.isX?'X':String(sh.score));
+      const total=state.shots.reduce((a,b)=>a+(Number(b.score)||0),0);
+      rows.push(rowHtml(endNo,vals,total,true));
+      continue;
+    }
+
+    const completed=historyMap.get(endNo);
+    if(completed){
+      rows.push(rowHtml(endNo,completed.shots||[],completed.score ?? '',false));
+    }else{
+      rows.push(rowHtml(endNo,[], '',false));
+    }
+  }
+
+  box.innerHTML=rows.join('');
+
+  requestAnimationFrame(()=>{
+    const current=box.querySelector('.paper-score-row.current');
+    if(current){
+      current.scrollIntoView({block:'nearest'});
+    }
+  });
+}
+
 function drawTarget(){
   const c=450, maxR=410;
   ctx.clearRect(0,0,900,900);
@@ -2401,6 +2810,8 @@ function render(){
   const isScoreOnly=state.mode==='score';
   const scoreScreen=document.getElementById('scoreScreen');
   scoreScreen.classList.toggle('score-only-mode',isScoreOnly);
+  scoreScreen.classList.toggle('scoreonly-three',isScoreOnly && state.arrowsPerEnd===3);
+  renderScoreOnlyPaperHistory();
   const targetWrap=document.querySelector('#scoreScreen .target-wrap');
   const keypad=document.getElementById('scoreKeypad');
   const scoreOnlyTotals=document.getElementById('scoreOnlyTotals');
@@ -2923,6 +3334,20 @@ function renderAnalysisPage(){
   inclusionValue.textContent=inclusionDisabled ? '—' : `${analysisInclusionRate}%`;
   inclusionSlider.oninput=()=>{
     analysisInclusionRate=Number(inclusionSlider.value);
+    inclusionValue.textContent=`${analysisInclusionRate}%`;
+    const records=analysisFilteredRecords();
+    drawAnalysisTarget(records);
+    updateAnalysisMetrics(records);
+  };
+
+  inclusionSlider.onclick=(e)=>{
+    if(inclusionSlider.disabled) return;
+    const rect=inclusionSlider.getBoundingClientRect();
+    const ratio=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));
+    const raw=50+ratio*50;
+    const snapped=Math.round(raw/5)*5;
+    inclusionSlider.value=snapped;
+    analysisInclusionRate=snapped;
     inclusionValue.textContent=`${analysisInclusionRate}%`;
     const records=analysisFilteredRecords();
     drawAnalysisTarget(records);
